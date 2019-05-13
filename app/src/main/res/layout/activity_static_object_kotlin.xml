@@ -80,7 +80,7 @@
 
   </FrameLayout>
 
-  <com.google.firebase.ml.md.java.productsearch.BottomSheetScrimView
+  <com.google.firebase.ml.md.kotlin.productsearch.BottomSheetScrimView
       android:id="@+id/bottom_sheet_scrim_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
