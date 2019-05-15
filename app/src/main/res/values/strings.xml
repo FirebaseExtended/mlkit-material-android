@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">MLKit Showcase</string>
+
+  <string name="entry_java_title">Java</string>
+  <string name="entry_java_subtitle">Run the MLKit Showcase written in Java.</string>
+  <string name="entry_kotlin_title">Kotlin</string>
+  <string name="entry_kotlin_subtitle">Run the MLKit Showcase written in Kotlin.</string>
   <string name="mode_odt_live_title">Object Detection: Live Camera</string>
   <string name="mode_odt_live_subtitle">A device’s live camera can be used to detect objects in an environment.</string>
   <string name="mode_odt_static_title">Object Detection: Static Image</string>

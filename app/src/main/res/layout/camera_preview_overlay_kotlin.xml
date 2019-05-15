@@ -2,7 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <com.google.firebase.ml.md.java.camera.GraphicOverlay
+  <com.google.firebase.ml.md.kotlin.camera.GraphicOverlay
       android:id="@+id/camera_preview_graphic_overlay"
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>

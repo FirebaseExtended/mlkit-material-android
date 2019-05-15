@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true">
 
-  <com.google.firebase.ml.md.java.camera.CameraSourcePreview
+  <com.google.firebase.ml.md.kotlin.camera.CameraSourcePreview
       android:id="@+id/camera_preview"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-    <include layout="@layout/camera_preview_overlay"/>
+    <include layout="@layout/camera_preview_overlay_kotlin"/>
 
-  </com.google.firebase.ml.md.java.camera.CameraSourcePreview>
+  </com.google.firebase.ml.md.kotlin.camera.CameraSourcePreview>
 
   <include
       layout="@layout/top_action_bar_in_live_camera"
@@ -21,7 +21,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="top"/>
 
-  <com.google.firebase.ml.md.java.productsearch.BottomSheetScrimView
+  <com.google.firebase.ml.md.kotlin.productsearch.BottomSheetScrimView
       android:id="@+id/bottom_sheet_scrim_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
