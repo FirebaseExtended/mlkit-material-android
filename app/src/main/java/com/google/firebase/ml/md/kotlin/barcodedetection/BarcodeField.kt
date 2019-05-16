@@ -16,30 +16,9 @@
 
 package com.google.firebase.ml.md.kotlin.barcodedetection
 
-import android.os.Parcel
 import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 /** Information about a barcode field.  */
-class BarcodeField(internal val label:String, internal val value:String) : Parcelable {
-
-    override fun describeContents() = 0
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeString(label)
-        dest.writeString(value)
-    }
-
-    companion object {
-
-        @JvmField
-        val CREATOR: Parcelable.Creator<BarcodeField> = object : Parcelable.Creator<BarcodeField> {
-            override fun createFromParcel(parcel: Parcel): BarcodeField{
-                return BarcodeField( label = parcel.readString()?:"", value = parcel.readString()?:"" )
-            }
-
-            override fun newArray(size: Int): Array<BarcodeField?>{
-                return arrayOfNulls(size)
-            }
-
-        }
-    }
-}
+@Parcelize
+data class BarcodeField(val label:String, val value:String) : Parcelable

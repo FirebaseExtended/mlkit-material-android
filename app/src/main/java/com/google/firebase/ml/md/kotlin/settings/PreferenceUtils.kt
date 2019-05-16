@@ -31,9 +31,7 @@ object PreferenceUtils {
 
     fun isAutoSearchEnabled(context: Context): Boolean = getBooleanPref(context, R.string.pref_key_enable_auto_search, true)
 
-
     fun isMultipleObjectsMode(context: Context): Boolean = getBooleanPref(context, R.string.pref_key_object_detector_enable_multiple_objects, false)
-
 
     fun isClassificationEnabled(context: Context): Boolean = getBooleanPref(context, R.string.pref_key_object_detector_enable_classification, false)
 
@@ -49,7 +47,6 @@ object PreferenceUtils {
         isAutoSearchEnabled(context) -> getIntPref(context, R.string.pref_key_confirmation_time_in_auto_search, 1500)
         else -> getIntPref(context, R.string.pref_key_confirmation_time_in_manual_search, 500)
     }
-
 
     fun getProgressToMeetBarcodeSizeRequirement(
             overlay: GraphicOverlay, barcode: FirebaseVisionBarcode): Float {
@@ -94,7 +91,6 @@ object PreferenceUtils {
         } catch (e: Exception) {
             null
         }
-
     }
 
     private fun getBooleanPref(context: Context, @StringRes prefKeyId: Int, defaultValue: Boolean): Boolean = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(prefKeyId), defaultValue)

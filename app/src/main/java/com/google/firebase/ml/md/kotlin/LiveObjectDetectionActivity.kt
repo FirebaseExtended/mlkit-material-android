@@ -191,7 +191,6 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
     }
 
     private fun stopCameraPreview() {
-
         if (workflowModel?.isCameraLive == true) {
             workflowModel!!.markCameraFrozen()
             flashButton?.isSelected = false
@@ -289,7 +288,8 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
                                 R.plurals.bottom_sheet_title, productList.size, productList.size)
                 productRecyclerView?.adapter = ProductAdapter(productList)
                 slidingSheetUpFromHiddenState = true
-                bottomSheetBehavior?.peekHeight = preview?.height ?: 0 / 2
+                bottomSheetBehavior?.peekHeight =
+                    preview?.height?.div(2) ?: BottomSheetBehavior.PEEK_HEIGHT_AUTO
                 bottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
             })
         }

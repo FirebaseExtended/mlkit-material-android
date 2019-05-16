@@ -36,12 +36,12 @@ class DetectedObject(private val visionObject: FirebaseVisionObject, val objectI
     val objectId: Int? = visionObject.trackingId
     val boundingBox: Rect = visionObject.boundingBox
 
-    /* quality= */ val imageData: ByteArray?
+    val imageData: ByteArray?
         @Synchronized get() {
             if (jpegBytes == null) {
                 try {
                     ByteArrayOutputStream().use { stream ->
-                        getBitmap().compress(CompressFormat.JPEG, 100, stream)
+                        getBitmap().compress(CompressFormat.JPEG, /* quality= */ 100, stream)
                         jpegBytes = stream.toByteArray()
                     }
                 } catch (e: IOException) {

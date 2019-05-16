@@ -16,10 +16,7 @@
 
 package com.google.firebase.ml.md.kotlin.productsearch
 
-import com.google.common.base.Preconditions.checkArgument
-
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -28,6 +25,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.google.common.base.Preconditions.checkArgument
 import com.google.firebase.ml.md.R
 
 /** Draws the scrim of bottom sheet with object thumbnail highlighted.  */

@@ -27,7 +27,6 @@ import android.view.SurfaceHolder
 import android.view.WindowManager
 import com.google.android.gms.common.images.Size
 import com.google.firebase.ml.md.R
-import com.google.firebase.ml.md.kotlin.camera.GraphicOverlay
 import com.google.firebase.ml.md.kotlin.Utils
 import com.google.firebase.ml.md.kotlin.settings.PreferenceUtils
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
@@ -161,9 +160,9 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
     }
 
     fun updateFlashMode(flashMode: String) {
-        camera?.let {
-            it.parameters.flashMode == flashMode
-        }
+        val parameters = camera?.parameters
+        parameters?.flashMode = flashMode
+        camera?.parameters = parameters
     }
 
     /**
@@ -195,7 +194,7 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
 
         camera.parameters = parameters
 
-        camera.setPreviewCallbackWithBuffer { data, camera -> processingRunnable.setNextFrame(data, camera) }
+        camera.setPreviewCallbackWithBuffer(processingRunnable::setNextFrame)
 
         // Four frame buffers are needed for working with the camera:
         //

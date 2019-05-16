@@ -18,7 +18,6 @@ package com.google.firebase.ml.md.kotlin.barcodedetection
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -31,8 +30,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.ml.md.R
 import com.google.firebase.ml.md.kotlin.camera.WorkflowModel
 import com.google.firebase.ml.md.kotlin.camera.WorkflowModel.WorkflowState
-import java.util.ArrayList
-
 
 /** Displays the bottom sheet to present barcode fields contained in the detected barcode.  */
 class BarcodeResultFragment : BottomSheetDialogFragment() {

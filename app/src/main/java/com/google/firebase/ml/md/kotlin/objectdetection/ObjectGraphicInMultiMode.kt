@@ -86,7 +86,7 @@ internal class ObjectGraphicInMultiMode(
         minBoxLen = resources.getDimensionPixelOffset(R.dimen.object_reticle_outer_ring_stroke_radius) * 2
     }
 
-    public override fun draw(canvas: Canvas) {
+    override fun draw(canvas: Canvas) {
         var rect = overlay.translateRect(detectedObject.boundingBox)
 
         val boxWidth = rect.width() * confirmationController.progress

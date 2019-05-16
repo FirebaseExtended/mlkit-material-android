@@ -222,7 +222,7 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
         try {
             inputBitmap = Utils.loadImage(this, imageUri, MAX_IMAGE_DIMENSION)
         } catch (e: IOException) {
-            Log.e(TAG, "Failed to load file: " + imageUri, e)
+            Log.e(TAG, "Failed to load file: $imageUri", e)
             showBottomPromptChip("Failed to load file!")
             return
         }

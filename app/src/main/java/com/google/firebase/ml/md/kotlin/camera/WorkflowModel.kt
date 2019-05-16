@@ -16,7 +16,6 @@
 
 package com.google.firebase.ml.md.kotlin.camera
 
-
 import android.app.Application
 import android.content.Context
 import androidx.annotation.MainThread
@@ -92,7 +91,6 @@ class WorkflowModel(application: Application) : AndroidViewModel(application) {
             setWorkflowState(WorkflowState.SEARCHING)
             triggerSearch(it)
         }
-
     }
 
     private fun triggerSearch(detectedObject: DetectedObject) {
@@ -126,6 +124,5 @@ class WorkflowModel(application: Application) : AndroidViewModel(application) {
         setWorkflowState(WorkflowState.SEARCHED)
 
         searchedObject.value = SearchedObject(context.resources, lConfirmedObject, products)
-
     }
 }

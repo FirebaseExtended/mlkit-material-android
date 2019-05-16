@@ -17,4 +17,4 @@
 package com.google.firebase.ml.md.kotlin.productsearch
 
 /** Information about a product.  */
-class Product internal constructor(internal val imageUrl: String, internal val title: String, internal val subtitle: String)
+data class Product internal constructor(val imageUrl: String, val title: String, val subtitle: String)

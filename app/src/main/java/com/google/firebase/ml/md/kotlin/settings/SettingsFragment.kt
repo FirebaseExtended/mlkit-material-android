@@ -28,7 +28,7 @@ import java.util.HashMap
 /** Configures App settings.  */
 class SettingsFragment : PreferenceFragmentCompat() {
 
-    override fun onCreatePreferences(bundle: Bundle, rootKey: String) {
+    override fun onCreatePreferences(bundle: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
         setUpRearCameraPreviewSizePreference()
     }
