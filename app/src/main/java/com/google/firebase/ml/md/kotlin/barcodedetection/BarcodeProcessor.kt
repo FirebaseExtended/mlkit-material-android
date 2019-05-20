@@ -32,18 +32,21 @@ import com.google.firebase.ml.md.kotlin.settings.PreferenceUtils
 import java.io.IOException
 
 /** A processor to run the barcode detector.  */
-class BarcodeProcessor(graphicOverlay: GraphicOverlay, private val workflowModel: WorkflowModel) : FrameProcessorBase<List<FirebaseVisionBarcode>>() {
+class BarcodeProcessor(graphicOverlay: GraphicOverlay, private val workflowModel: WorkflowModel) :
+    FrameProcessorBase<List<FirebaseVisionBarcode>>() {
 
     private val detector = FirebaseVision.getInstance().visionBarcodeDetector
     private val cameraReticleAnimator: CameraReticleAnimator = CameraReticleAnimator(graphicOverlay)
 
-    override fun detectInImage(image: FirebaseVisionImage): Task<List<FirebaseVisionBarcode>> = detector.detectInImage(image)
+    override fun detectInImage(image: FirebaseVisionImage): Task<List<FirebaseVisionBarcode>> =
+        detector.detectInImage(image)
 
     @MainThread
     override fun onSuccess(
-            image: FirebaseVisionImage,
-            results: List<FirebaseVisionBarcode>,
-            graphicOverlay: GraphicOverlay) {
+        image: FirebaseVisionImage,
+        results: List<FirebaseVisionBarcode>,
+        graphicOverlay: GraphicOverlay
+    ) {
 
         if (!workflowModel.isCameraLive) return
 
@@ -111,7 +114,6 @@ class BarcodeProcessor(graphicOverlay: GraphicOverlay, private val workflowModel
         } catch (e: IOException) {
             Log.e(TAG, "Failed to close barcode detector!", e)
         }
-
     }
 
     companion object {

@@ -26,7 +26,11 @@ import com.google.firebase.ml.md.kotlin.camera.GraphicOverlay.Graphic
 import com.google.firebase.ml.md.R
 
 /** A dot to indicate a detected object used by multiple objects detection mode.  */
-internal class ObjectDotGraphic(overlay: GraphicOverlay, detectedObject: DetectedObject, private val animator: ObjectDotAnimator) : Graphic(overlay) {
+internal class ObjectDotGraphic(
+    overlay: GraphicOverlay,
+    detectedObject: DetectedObject,
+    private val animator: ObjectDotAnimator
+) : Graphic(overlay) {
     private val paint: Paint
     private val center: PointF
     private val dotRadius: Int

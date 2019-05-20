@@ -57,7 +57,8 @@ class CameraReticleAnimator(graphicOverlay: GraphicOverlay) {
             graphicOverlay.postInvalidate()
         }
 
-        val rippleStrokeWidthShrinkAnimator = ValueAnimator.ofFloat(1f, 0.5f).setDuration(DURATION_RIPPLE_STROKE_WIDTH_SHRINK_MS)
+        val rippleStrokeWidthShrinkAnimator =
+            ValueAnimator.ofFloat(1f, 0.5f).setDuration(DURATION_RIPPLE_STROKE_WIDTH_SHRINK_MS)
         rippleStrokeWidthShrinkAnimator.startDelay = START_DELAY_RIPPLE_STROKE_WIDTH_SHRINK_MS
         rippleStrokeWidthShrinkAnimator.interpolator = FastOutSlowInInterpolator()
         rippleStrokeWidthShrinkAnimator.addUpdateListener { animation ->

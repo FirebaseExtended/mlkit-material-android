@@ -137,7 +137,6 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
             data?.data?.let {
                 detectObjects(it)
             }
-
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
@@ -177,7 +176,8 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
                     object : BottomSheetBehavior.BottomSheetCallback() {
                         override fun onStateChanged(bottomSheet: View, newState: Int) {
                             Log.d(TAG, "Bottom sheet new state: $newState")
-                            bottomSheetScrimView?.visibility = if (newState == BottomSheetBehavior.STATE_HIDDEN) View.GONE else View.VISIBLE
+                            bottomSheetScrimView?.visibility =
+                                if (newState == BottomSheetBehavior.STATE_HIDDEN) View.GONE else View.VISIBLE
                         }
 
                         override fun onSlide(bottomSheet: View, slideOffset: Float) {
@@ -247,7 +247,6 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
             for (i in objects.indices) {
                 searchEngine?.search(DetectedObject(objects[i], i, image)) { detectedObject, products ->
                     onSearchCompleted(detectedObject, products)
-
                 }
             }
         }
@@ -263,7 +262,8 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
 
         showBottomPromptChip(getString(R.string.static_image_prompt_detected_results))
         loadingView?.visibility = View.GONE
-        previewCardCarousel?.adapter = PreviewCardAdapter(ImmutableList.copyOf(searchedObjectMap.values)) { showSearchResults(it) }
+        previewCardCarousel?.adapter =
+            PreviewCardAdapter(ImmutableList.copyOf(searchedObjectMap.values)) { showSearchResults(it) }
         previewCardCarousel?.addOnScrollListener(
                 object : RecyclerView.OnScrollListener() {
                     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

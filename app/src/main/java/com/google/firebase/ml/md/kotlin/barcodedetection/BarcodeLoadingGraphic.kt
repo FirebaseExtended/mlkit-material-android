@@ -24,7 +24,9 @@ import android.graphics.PointF
 import com.google.firebase.ml.md.kotlin.camera.GraphicOverlay
 
 /** Draws the graphic to indicate the barcode result is in loading.  */
-internal class BarcodeLoadingGraphic(overlay: GraphicOverlay, private val loadingAnimator: ValueAnimator) : BarcodeGraphicBase(overlay) {
+internal class BarcodeLoadingGraphic(overlay: GraphicOverlay, private val loadingAnimator: ValueAnimator) :
+    BarcodeGraphicBase(overlay) {
+
     private val boxClockwiseCoordinates: Array<PointF> = arrayOf(
             PointF(boxRect.left, boxRect.top),
             PointF(boxRect.right, boxRect.top),
@@ -66,7 +68,8 @@ internal class BarcodeLoadingGraphic(overlay: GraphicOverlay, private val loadin
             val index = (i + j) % 4
             val nextIndex = (i + j + 1) % 4
             // The length between path's current end point and reticle box's next coordinate point.
-            val lineLen = Math.abs(boxClockwiseCoordinates[nextIndex].x - lastPathPoint.x) + Math.abs(boxClockwiseCoordinates[nextIndex].y - lastPathPoint.y)
+            val lineLen = Math.abs(boxClockwiseCoordinates[nextIndex].x - lastPathPoint.x) +
+                    Math.abs(boxClockwiseCoordinates[nextIndex].y - lastPathPoint.y)
             if (lineLen >= pathLen) {
                 path.lineTo(
                         lastPathPoint.x + pathLen * coordinateOffsetBits[index].x,

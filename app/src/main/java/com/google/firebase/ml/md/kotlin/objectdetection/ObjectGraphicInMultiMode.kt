@@ -35,9 +35,10 @@ import com.google.firebase.ml.md.R
  * Draws the detected detectedObject info over the camera preview for multiple objects detection mode.
  */
 internal class ObjectGraphicInMultiMode(
-        overlay: GraphicOverlay,
-        private val detectedObject: DetectedObject,
-        private val confirmationController: ObjectConfirmationController) : Graphic(overlay) {
+    overlay: GraphicOverlay,
+    private val detectedObject: DetectedObject,
+    private val confirmationController: ObjectConfirmationController
+) : Graphic(overlay) {
 
     private val boxPaint: Paint
     private val scrimPaint: Paint

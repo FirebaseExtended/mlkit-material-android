@@ -32,7 +32,9 @@ import com.google.firebase.ml.md.kotlin.settings.PreferenceUtils
  * confirmed for a follow up processing, e.g. product search.
  */
 class ObjectConfirmationGraphic internal constructor(
-        overlay: GraphicOverlay, private val confirmationController: ObjectConfirmationController) : Graphic(overlay) {
+    overlay: GraphicOverlay,
+    private val confirmationController: ObjectConfirmationController
+) : Graphic(overlay) {
 
     private val outerRingFillPaint: Paint
     private val outerRingStrokePaint: Paint
@@ -70,7 +72,8 @@ class ObjectConfirmationGraphic internal constructor(
             innerRingPaint.color = ContextCompat.getColor(context, R.color.object_reticle_inner_ring)
         } else {
             innerRingPaint.style = Style.STROKE
-            innerRingPaint.strokeWidth = resources.getDimensionPixelOffset(R.dimen.object_reticle_inner_ring_stroke_width).toFloat()
+            innerRingPaint.strokeWidth =
+                resources.getDimensionPixelOffset(R.dimen.object_reticle_inner_ring_stroke_width).toFloat()
             innerRingPaint.strokeCap = Cap.ROUND
             innerRingPaint.color = ContextCompat.getColor(context, R.color.white)
         }

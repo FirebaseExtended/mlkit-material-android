@@ -40,7 +40,6 @@ class CameraSourcePreview(context: Context, attrs: AttributeSet) : FrameLayout(c
     private var cameraSource: CameraSource? = null
     private var cameraPreviewSize: Size? = null
 
-
     override fun onFinishInflate() {
         super.onFinishInflate()
         graphicOverlay = findViewById(R.id.camera_preview_graphic_overlay)
@@ -110,7 +109,6 @@ class CameraSourcePreview(context: Context, attrs: AttributeSet) : FrameLayout(c
         } catch (e: IOException) {
             Log.e(TAG, "Could not start camera source.", e)
         }
-
     }
 
     private inner class SurfaceCallback : SurfaceHolder.Callback {
@@ -121,7 +119,6 @@ class CameraSourcePreview(context: Context, attrs: AttributeSet) : FrameLayout(c
             } catch (e: IOException) {
                 Log.e(TAG, "Could not start camera source.", e)
             }
-
         }
 
         override fun surfaceDestroyed(surface: SurfaceHolder) {

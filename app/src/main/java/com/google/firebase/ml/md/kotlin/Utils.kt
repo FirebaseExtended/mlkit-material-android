@@ -78,11 +78,10 @@ object Utils {
         } catch (e: Exception) {
             arrayOf()
         }
-
     }
 
-    fun isPortraitMode(context: Context): Boolean = context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-
+    fun isPortraitMode(context: Context): Boolean =
+        context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
 
     /**
      * Generates a list of acceptable preview sizes. Preview sizes are not acceptable if there is not
@@ -163,7 +162,6 @@ object Utils {
             inputStreamForImage = context.contentResolver.openInputStream(imageUri)
             val decodedBitmap = BitmapFactory.decodeStream(inputStreamForImage, null, opts)/* outPadding= */
             return maybeTransformBitmap(context.contentResolver, imageUri, decodedBitmap)
-
         } finally {
             inputStreamForSize?.close()
             inputStreamForImage?.close()
@@ -193,7 +191,7 @@ object Utils {
 
         return if (matrix != null) {
             Bitmap.createBitmap(bitmap!!, 0, 0, bitmap.width, bitmap.height, matrix, true)
-        }else {
+        } else {
             bitmap
         }
     }

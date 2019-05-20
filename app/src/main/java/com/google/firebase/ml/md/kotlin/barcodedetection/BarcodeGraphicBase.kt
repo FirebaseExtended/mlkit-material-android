@@ -32,24 +32,25 @@ import com.google.firebase.ml.md.kotlin.settings.PreferenceUtils
 
 internal abstract class BarcodeGraphicBase(overlay: GraphicOverlay) : Graphic(overlay) {
 
-    private val boxPaint: Paint = Paint().apply{
+    private val boxPaint: Paint = Paint().apply {
         color = ContextCompat.getColor(context, R.color.barcode_reticle_stroke)
         style = Style.STROKE
         strokeWidth = context.resources.getDimensionPixelOffset(R.dimen.barcode_reticle_stroke_width).toFloat()
     }
 
-    private val scrimPaint: Paint = Paint().apply{
+    private val scrimPaint: Paint = Paint().apply {
         color = ContextCompat.getColor(context, R.color.barcode_reticle_background)
     }
 
-    private val eraserPaint: Paint = Paint().apply{
+    private val eraserPaint: Paint = Paint().apply {
         strokeWidth = boxPaint.strokeWidth
         xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
     }
 
-    val boxCornerRadius: Float = context.resources.getDimensionPixelOffset(R.dimen.barcode_reticle_corner_radius).toFloat()
+    val boxCornerRadius: Float =
+        context.resources.getDimensionPixelOffset(R.dimen.barcode_reticle_corner_radius).toFloat()
 
-    val pathPaint: Paint = Paint().apply{
+    val pathPaint: Paint = Paint().apply {
         color = Color.WHITE
         style = Style.STROKE
         strokeWidth = boxPaint.strokeWidth

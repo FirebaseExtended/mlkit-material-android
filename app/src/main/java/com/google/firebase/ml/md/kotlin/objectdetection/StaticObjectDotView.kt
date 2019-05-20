@@ -31,7 +31,8 @@ class StaticObjectDotView @JvmOverloads constructor(context: Context, selected: 
     private val paint: Paint = Paint().apply {
         style = Paint.Style.FILL
     }
-    private val unselectedDotRadius: Int = context.resources.getDimensionPixelOffset(R.dimen.static_image_dot_radius_unselected)
+    private val unselectedDotRadius: Int =
+        context.resources.getDimensionPixelOffset(R.dimen.static_image_dot_radius_unselected)
     private val radiusOffsetRange: Int
 
     private var currentRadiusOffset: Float = 0.toFloat()
@@ -74,4 +75,4 @@ class StaticObjectDotView @JvmOverloads constructor(context: Context, selected: 
         private const val DOT_SELECTION_ANIMATOR_DURATION_MS: Long = 116
         private const val DOT_DESELECTION_ANIMATOR_DURATION_MS: Long = 67
     }
-}/* selected= */
+}

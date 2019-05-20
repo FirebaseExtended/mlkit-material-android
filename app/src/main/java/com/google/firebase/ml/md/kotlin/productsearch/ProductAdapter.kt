@@ -49,17 +49,17 @@ class ProductAdapter(private val productList: List<Product>) : Adapter<ProductVi
         }
 
         companion object {
-            fun create(parent: ViewGroup) = ProductViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false))
+            fun create(parent: ViewGroup) =
+                ProductViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false))
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder = ProductViewHolder.create(parent)
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder =
+        ProductViewHolder.create(parent)
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.bindProduct(productList[position])
     }
 
     override fun getItemCount(): Int = productList.size
-
 }

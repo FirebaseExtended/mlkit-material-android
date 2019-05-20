@@ -66,7 +66,10 @@ class BottomSheetScrimView(context: Context, attrs: AttributeSet) : View(context
      * keeping thumbnail size fixed.
      */
     fun updateWithThumbnailTranslate(
-            thumbnailBitmap: Bitmap, collapsedStateHeight: Int, slideOffset: Float, bottomSheet: View
+        thumbnailBitmap: Bitmap,
+        collapsedStateHeight: Int,
+        slideOffset: Float,
+        bottomSheet: View
     ) {
         this.thumbnailBitmap = thumbnailBitmap
 
@@ -80,7 +83,8 @@ class BottomSheetScrimView(context: Context, attrs: AttributeSet) : View(context
         }
 
         thumbnailRect = RectF().apply {
-            val thumbnailWidth = thumbnailBitmap.width.toFloat() / thumbnailBitmap.height.toFloat() * thumbnailHeight.toFloat()
+            val thumbnailWidth =
+                thumbnailBitmap.width.toFloat() / thumbnailBitmap.height.toFloat() * thumbnailHeight.toFloat()
             left = thumbnailMargin.toFloat()
             top = height.toFloat() - currentSheetHeight - thumbnailMargin.toFloat() - thumbnailHeight.toFloat()
             right = left + thumbnailWidth
@@ -98,7 +102,10 @@ class BottomSheetScrimView(context: Context, attrs: AttributeSet) : View(context
      * It's only used by sliding the sheet up from hidden state to collapsed state.
      */
     fun updateWithThumbnailTranslateAndScale(
-            thumbnailBitmap: Bitmap, collapsedStateHeight: Int, slideOffset: Float, srcThumbnailRect: RectF
+        thumbnailBitmap: Bitmap,
+        collapsedStateHeight: Int,
+        slideOffset: Float,
+        srcThumbnailRect: RectF
     ) {
         checkArgument(
                 slideOffset <= 0,

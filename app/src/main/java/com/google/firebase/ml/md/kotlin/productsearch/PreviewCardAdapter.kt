@@ -26,7 +26,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.ml.md.R
 
 /** Powers the bottom card carousel for displaying the preview of product search result.  */
-class PreviewCardAdapter(private val searchedObjectList: List<SearchedObject>, private val previewCordClickedListener: (searchedObject:SearchedObject)->Any) : RecyclerView.Adapter<PreviewCardAdapter.CardViewHolder>() {
+class PreviewCardAdapter(
+    private val searchedObjectList: List<SearchedObject>,
+    private val previewCordClickedListener: (searchedObject: SearchedObject) -> Any
+) : RecyclerView.Adapter<PreviewCardAdapter.CardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         return CardViewHolder(

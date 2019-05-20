@@ -89,15 +89,17 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
             cameraSource = CameraSource(this)
         }
         promptChip = findViewById(R.id.bottom_prompt_chip)
-        promptChipAnimator = (AnimatorInflater.loadAnimator(this, R.animator.bottom_prompt_chip_enter) as AnimatorSet).apply {
-            setTarget(promptChip)
-        }
+        promptChipAnimator =
+            (AnimatorInflater.loadAnimator(this, R.animator.bottom_prompt_chip_enter) as AnimatorSet).apply {
+                setTarget(promptChip)
+            }
         searchButton = findViewById<ExtendedFloatingActionButton>(R.id.product_search_button).apply {
             setOnClickListener(this@LiveObjectDetectionActivity)
         }
-        searchButtonAnimator = (AnimatorInflater.loadAnimator(this, R.animator.search_button_enter) as AnimatorSet).apply {
-            setTarget(searchButton)
-        }
+        searchButtonAnimator =
+            (AnimatorInflater.loadAnimator(this, R.animator.search_button_enter) as AnimatorSet).apply {
+                setTarget(searchButton)
+            }
         searchProgressBar = findViewById(R.id.search_progress_bar)
         setUpBottomSheet()
         findViewById<View>(R.id.close_button).setOnClickListener(this)
@@ -169,7 +171,6 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
                 settingsButton?.isEnabled = false
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
-
         }
     }
 
@@ -180,13 +181,11 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
             try {
                 workflowModel.markCameraLive()
                 preview?.start(cameraSource)
-
             } catch (e: IOException) {
                 Log.e(TAG, "Failed to start camera preview!", e)
                 cameraSource.release()
                 this.cameraSource = null
             }
-
         }
     }
 
@@ -204,15 +203,17 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
                 object : BottomSheetBehavior.BottomSheetCallback() {
                     override fun onStateChanged(bottomSheet: View, newState: Int) {
                         Log.d(TAG, "Bottom sheet new state: $newState")
-                        bottomSheetScrimView?.visibility = if (newState == BottomSheetBehavior.STATE_HIDDEN) View.GONE else View.VISIBLE
+                        bottomSheetScrimView?.visibility =
+                            if (newState == BottomSheetBehavior.STATE_HIDDEN) View.GONE else View.VISIBLE
                         graphicOverlay?.clear()
 
                         when (newState) {
                             BottomSheetBehavior.STATE_HIDDEN -> workflowModel?.setWorkflowState(WorkflowState.DETECTING)
-                            BottomSheetBehavior.STATE_COLLAPSED, BottomSheetBehavior.STATE_EXPANDED, BottomSheetBehavior.STATE_HALF_EXPANDED -> slidingSheetUpFromHiddenState = false
+                            BottomSheetBehavior.STATE_COLLAPSED,
+                            BottomSheetBehavior.STATE_EXPANDED,
+                            BottomSheetBehavior.STATE_HALF_EXPANDED -> slidingSheetUpFromHiddenState = false
                             BottomSheetBehavior.STATE_DRAGGING, BottomSheetBehavior.STATE_SETTLING -> {
                             }
-
                         }
                     }
 
@@ -233,9 +234,9 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
                                     collapsedStateHeight,
                                     slideOffset,
                                     thumbnailSrcRect)
-
                         } else {
-                            bottomSheetScrimView?.updateWithThumbnailTranslate(bottomBitmap, collapsedStateHeight, slideOffset, bottomSheet)
+                            bottomSheetScrimView?.updateWithThumbnailTranslate(
+                                bottomBitmap, collapsedStateHeight, slideOffset, bottomSheet)
                         }
                     }
                 })
@@ -255,7 +256,6 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
     private fun setUpWorkflowModel() {
         workflowModel = ViewModelProviders.of(this).get(WorkflowModel::class.java).apply {
 
-
             // Observes the workflow state changes, if happens, update the overlay view indicators and
             // camera preview state.
             workflowState.observe(this@LiveObjectDetectionActivity, Observer { workflowState ->
@@ -274,7 +274,9 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
 
             // Observes changes on the object to search, if happens, fire product search request.
             objectToSearch.observe(this@LiveObjectDetectionActivity, Observer { detectObject ->
-                searchEngine!!.search(detectObject) { detectedObject, products -> workflowModel?.onSearchCompleted(detectedObject, products) }
+                searchEngine!!.search(detectObject) {
+                        detectedObject, products -> workflowModel?.onSearchCompleted(detectedObject, products)
+                }
             })
 
             // Observes changes on the object that has search completed, if happens, show the bottom sheet

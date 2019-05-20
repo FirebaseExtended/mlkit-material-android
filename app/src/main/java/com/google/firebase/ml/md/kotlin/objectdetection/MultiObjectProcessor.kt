@@ -38,7 +38,8 @@ import java.io.IOException
 import java.util.ArrayList
 
 /** A processor to run object detector in multi-objects mode.  */
-class MultiObjectProcessor(graphicOverlay: GraphicOverlay, private val workflowModel: WorkflowModel) : FrameProcessorBase<List<FirebaseVisionObject>>() {
+class MultiObjectProcessor(graphicOverlay: GraphicOverlay, private val workflowModel: WorkflowModel) :
+    FrameProcessorBase<List<FirebaseVisionObject>>() {
     private val confirmationController: ObjectConfirmationController = ObjectConfirmationController(graphicOverlay)
     private val cameraReticleAnimator: CameraReticleAnimator = CameraReticleAnimator(graphicOverlay)
     private val objectSelectionDistanceThreshold: Int = graphicOverlay
@@ -64,7 +65,6 @@ class MultiObjectProcessor(graphicOverlay: GraphicOverlay, private val workflowM
         } catch (e: IOException) {
             Log.e(TAG, "Failed to close object detector!", e)
         }
-
     }
 
     override fun detectInImage(image: FirebaseVisionImage): Task<List<FirebaseVisionObject>> {
@@ -73,9 +73,10 @@ class MultiObjectProcessor(graphicOverlay: GraphicOverlay, private val workflowM
 
     @MainThread
     override fun onSuccess(
-            image: FirebaseVisionImage,
-            results: List<FirebaseVisionObject>,
-            graphicOverlay: GraphicOverlay) {
+        image: FirebaseVisionImage,
+        results: List<FirebaseVisionObject>,
+        graphicOverlay: GraphicOverlay
+    ) {
         var objects = results
         if (!workflowModel.isCameraLive) {
             return
@@ -171,7 +172,8 @@ class MultiObjectProcessor(graphicOverlay: GraphicOverlay, private val workflowM
         val box = graphicOverlay.translateRect(visionObject.boundingBox)
         val objectCenter = PointF((box.left + box.right) / 2f, (box.top + box.bottom) / 2f)
         val reticleCenter = PointF(graphicOverlay.width / 2f, graphicOverlay.height / 2f)
-        val distance = Math.hypot((objectCenter.x - reticleCenter.x).toDouble(), (objectCenter.y - reticleCenter.y).toDouble())
+        val distance =
+            Math.hypot((objectCenter.x - reticleCenter.x).toDouble(), (objectCenter.y - reticleCenter.y).toDouble())
         return distance < objectSelectionDistanceThreshold
     }
 

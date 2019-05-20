@@ -36,7 +36,8 @@ import java.io.IOException
 import java.util.ArrayList
 
 /** A processor to run object detector in prominent object only mode.  */
-class ProminentObjectProcessor(graphicOverlay: GraphicOverlay, private val workflowModel: WorkflowModel) : FrameProcessorBase<List<FirebaseVisionObject>>() {
+class ProminentObjectProcessor(graphicOverlay: GraphicOverlay, private val workflowModel: WorkflowModel) :
+    FrameProcessorBase<List<FirebaseVisionObject>>() {
 
     private val detector: FirebaseVisionObjectDetector
     private val confirmationController: ObjectConfirmationController = ObjectConfirmationController(graphicOverlay)
@@ -61,7 +62,6 @@ class ProminentObjectProcessor(graphicOverlay: GraphicOverlay, private val workf
         } catch (e: IOException) {
             Log.e(TAG, "Failed to close object detector!", e)
         }
-
     }
 
     override fun detectInImage(image: FirebaseVisionImage): Task<List<FirebaseVisionObject>> {
@@ -69,7 +69,11 @@ class ProminentObjectProcessor(graphicOverlay: GraphicOverlay, private val workf
     }
 
     @MainThread
-    override fun onSuccess(image: FirebaseVisionImage, results: List<FirebaseVisionObject>, graphicOverlay: GraphicOverlay) {
+    override fun onSuccess(
+        image: FirebaseVisionImage,
+        results: List<FirebaseVisionObject>,
+        graphicOverlay: GraphicOverlay
+    ) {
         var objects = results
         if (!workflowModel.isCameraLive) {
             return
@@ -115,7 +119,8 @@ class ProminentObjectProcessor(graphicOverlay: GraphicOverlay, private val workf
                                 graphicOverlay, objects[0], confirmationController
                         )
                 )
-                if (!confirmationController.isConfirmed && PreferenceUtils.isAutoSearchEnabled(graphicOverlay.context)) {
+                if (!confirmationController.isConfirmed &&
+                    PreferenceUtils.isAutoSearchEnabled(graphicOverlay.context)) {
                     // Shows a loading indicator to visualize the confirming progress if in auto search mode.
                     graphicOverlay.add(ObjectConfirmationGraphic(graphicOverlay, confirmationController))
                 }
@@ -135,7 +140,9 @@ class ProminentObjectProcessor(graphicOverlay: GraphicOverlay, private val workf
     }
 
     private fun objectBoxOverlapsConfirmationReticle(
-            graphicOverlay: GraphicOverlay, visionObject: FirebaseVisionObject): Boolean {
+        graphicOverlay: GraphicOverlay,
+        visionObject: FirebaseVisionObject
+    ): Boolean {
         val boxRect = graphicOverlay.translateRect(visionObject.boundingBox)
         val reticleCenterX = graphicOverlay.width / 2f
         val reticleCenterY = graphicOverlay.height / 2f

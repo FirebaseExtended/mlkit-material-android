@@ -29,11 +29,14 @@ import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
 /** Utility class to retrieve shared preferences.  */
 object PreferenceUtils {
 
-    fun isAutoSearchEnabled(context: Context): Boolean = getBooleanPref(context, R.string.pref_key_enable_auto_search, true)
+    fun isAutoSearchEnabled(context: Context): Boolean =
+        getBooleanPref(context, R.string.pref_key_enable_auto_search, true)
 
-    fun isMultipleObjectsMode(context: Context): Boolean = getBooleanPref(context, R.string.pref_key_object_detector_enable_multiple_objects, false)
+    fun isMultipleObjectsMode(context: Context): Boolean =
+        getBooleanPref(context, R.string.pref_key_object_detector_enable_multiple_objects, false)
 
-    fun isClassificationEnabled(context: Context): Boolean = getBooleanPref(context, R.string.pref_key_object_detector_enable_classification, false)
+    fun isClassificationEnabled(context: Context): Boolean =
+        getBooleanPref(context, R.string.pref_key_object_detector_enable_classification, false)
 
     fun saveStringPreference(context: Context, @StringRes prefKeyId: Int, value: String?) {
         PreferenceManager.getDefaultSharedPreferences(context)
@@ -49,7 +52,9 @@ object PreferenceUtils {
     }
 
     fun getProgressToMeetBarcodeSizeRequirement(
-            overlay: GraphicOverlay, barcode: FirebaseVisionBarcode): Float {
+        overlay: GraphicOverlay,
+        barcode: FirebaseVisionBarcode
+    ): Float {
         val context = overlay.context
         return if (getBooleanPref(context, R.string.pref_key_enable_barcode_size_check, false)) {
             val reticleBoxWidth = getBarcodeReticleBox(overlay).width()
@@ -72,7 +77,8 @@ object PreferenceUtils {
         return RectF(cx - boxWidth / 2, cy - boxHeight / 2, cx + boxWidth / 2, cy + boxHeight / 2)
     }
 
-    fun shouldDelayLoadingBarcodeResult(context: Context): Boolean = getBooleanPref(context, R.string.pref_key_delay_loading_barcode_result, true)
+    fun shouldDelayLoadingBarcodeResult(context: Context): Boolean =
+        getBooleanPref(context, R.string.pref_key_delay_loading_barcode_result, true)
 
     private fun getIntPref(context: Context, @StringRes prefKeyId: Int, defaultValue: Int): Int {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
@@ -93,6 +99,6 @@ object PreferenceUtils {
         }
     }
 
-    private fun getBooleanPref(context: Context, @StringRes prefKeyId: Int, defaultValue: Boolean): Boolean = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(prefKeyId), defaultValue)
-
+    private fun getBooleanPref(context: Context, @StringRes prefKeyId: Int, defaultValue: Boolean): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(prefKeyId), defaultValue)
 }

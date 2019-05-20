@@ -78,7 +78,6 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
     private val bytesToByteBuffer = IdentityHashMap<ByteArray, ByteBuffer>()
     private val context: Context = graphicOverlay.context
 
-
     /**
      * Opens the camera and starts sending preview frames to the underlying detector. The supplied
      * surface holder is used for the preview so frames can be displayed to the user.
@@ -242,7 +241,8 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
         sizePair.picture?.let { pictureSize ->
             Log.v(TAG, "Camera picture size: $pictureSize")
             parameters.setPictureSize(pictureSize.width, pictureSize.height)
-            PreferenceUtils.saveStringPreference(context, R.string.pref_key_rear_camera_picture_size, pictureSize.toString())
+            PreferenceUtils.saveStringPreference(
+                context, R.string.pref_key_rear_camera_picture_size, pictureSize.toString())
         }
     }
 
@@ -339,7 +339,10 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
                 }
 
                 if (!bytesToByteBuffer.containsKey(data)) {
-                    Log.d(TAG, "Skipping frame. Could not find ByteBuffer associated with the image data from the camera.")
+                    Log.d(
+                        TAG,
+                        "Skipping frame. Could not find ByteBuffer associated with the image data from the camera."
+                    )
                     return
                 }
 
@@ -378,7 +381,6 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
                             Log.e(TAG, "Frame processing loop terminated.", e)
                             return
                         }
-
                     }
 
                     if (!active) {
@@ -479,7 +481,9 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
                 var minDiff = Integer.MAX_VALUE
                 for (sizePair in validPreviewSizes) {
                     val size = sizePair.preview
-                    val diff = Math.abs(size.width - DEFAULT_REQUESTED_CAMERA_PREVIEW_WIDTH) + Math.abs(size.height - DEFAULT_REQUESTED_CAMERA_PREVIEW_HEIGHT)
+                    val diff =
+                        Math.abs(size.width - DEFAULT_REQUESTED_CAMERA_PREVIEW_WIDTH) +
+                            Math.abs(size.height - DEFAULT_REQUESTED_CAMERA_PREVIEW_HEIGHT)
                     if (diff < minDiff) {
                         selectedPair = sizePair
                         minDiff = diff

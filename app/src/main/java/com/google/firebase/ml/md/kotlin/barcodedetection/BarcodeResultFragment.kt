@@ -35,9 +35,10 @@ import com.google.firebase.ml.md.kotlin.camera.WorkflowModel.WorkflowState
 class BarcodeResultFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(
-            layoutInflater: LayoutInflater,
-            viewGroup: ViewGroup?,
-            bundle: Bundle?): View {
+        layoutInflater: LayoutInflater,
+        viewGroup: ViewGroup?,
+        bundle: Bundle?
+    ): View {
         val view = layoutInflater.inflate(R.layout.barcode_bottom_sheet, viewGroup)
 
         val arguments = arguments
@@ -85,4 +86,3 @@ class BarcodeResultFragment : BottomSheetDialogFragment() {
         }
     }
 }
-

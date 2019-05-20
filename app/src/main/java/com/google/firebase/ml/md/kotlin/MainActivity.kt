@@ -58,9 +58,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == Utils.REQUEST_CODE_PHOTO_LIBRARY
-                && resultCode == Activity.RESULT_OK
-                && data != null) {
+        if (requestCode == Utils.REQUEST_CODE_PHOTO_LIBRARY &&
+                resultCode == Activity.RESULT_OK &&
+                data != null) {
             val intent = Intent(this, StaticObjectDetectionActivity::class.java)
             intent.data = data.data
             startActivity(intent)
@@ -69,7 +69,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private inner class ModeItemAdapter internal constructor(private val detectionModes: Array<DetectionMode>) : RecyclerView.Adapter<ModeItemAdapter.ModeItemViewHolder>() {
+    private inner class ModeItemAdapter internal constructor(private val detectionModes: Array<DetectionMode>) :
+        RecyclerView.Adapter<ModeItemAdapter.ModeItemViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModeItemViewHolder {
             return ModeItemViewHolder(
@@ -79,10 +80,10 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        override fun onBindViewHolder(modeItemViewHolder: ModeItemViewHolder, position: Int) = modeItemViewHolder.bindDetectionMode(detectionModes[position])
+        override fun onBindViewHolder(modeItemViewHolder: ModeItemViewHolder, position: Int) =
+            modeItemViewHolder.bindDetectionMode(detectionModes[position])
 
         override fun getItemCount(): Int = detectionModes.size
-
 
         private inner class ModeItemViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -95,9 +96,11 @@ class MainActivity : AppCompatActivity() {
                 itemView.setOnClickListener {
                     val activity = this@MainActivity
                     when (detectionMode) {
-                        DetectionMode.ODT_LIVE -> activity.startActivity(Intent(activity, LiveObjectDetectionActivity::class.java))
+                        DetectionMode.ODT_LIVE ->
+                            activity.startActivity(Intent(activity, LiveObjectDetectionActivity::class.java))
                         DetectionMode.ODT_STATIC -> Utils.openImagePicker(activity)
-                        DetectionMode.BARCODE_LIVE -> activity.startActivity(Intent(activity, LiveBarcodeScanningActivity::class.java))
+                        DetectionMode.BARCODE_LIVE ->
+                            activity.startActivity(Intent(activity, LiveBarcodeScanningActivity::class.java))
                     }
                 }
             }

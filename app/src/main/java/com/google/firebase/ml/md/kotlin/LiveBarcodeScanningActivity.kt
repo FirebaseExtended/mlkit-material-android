@@ -66,9 +66,10 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
         }
 
         promptChip = findViewById(R.id.bottom_prompt_chip)
-        promptChipAnimator = (AnimatorInflater.loadAnimator(this, R.animator.bottom_prompt_chip_enter) as AnimatorSet).apply {
-            setTarget(promptChip)
-        }
+        promptChipAnimator =
+            (AnimatorInflater.loadAnimator(this, R.animator.bottom_prompt_chip_enter) as AnimatorSet).apply {
+                setTarget(promptChip)
+            }
 
         findViewById<View>(R.id.close_button).setOnClickListener(this)
         flashButton = findViewById<View>(R.id.flash_button).apply {
@@ -120,7 +121,6 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
                         it.isSelected = true
                         cameraSource!!.updateFlashMode(Camera.Parameters.FLASH_MODE_TORCH)
                     }
-
                 }
             }
             R.id.settings_button -> {
@@ -128,7 +128,6 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
         }
-
     }
 
     private fun startCameraPreview() {

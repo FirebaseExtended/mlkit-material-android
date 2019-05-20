@@ -35,9 +35,10 @@ import com.google.firebase.ml.md.R
  * Draws the detected visionObject info over the camera preview for prominent visionObject detection mode.
  */
 internal class ObjectGraphicInProminentMode(
-        overlay: GraphicOverlay,
-        private val visionObject: FirebaseVisionObject,
-        private val confirmationController: ObjectConfirmationController) : Graphic(overlay) {
+    overlay: GraphicOverlay,
+    private val visionObject: FirebaseVisionObject,
+    private val confirmationController: ObjectConfirmationController
+) : Graphic(overlay) {
 
     private val scrimPaint: Paint = Paint()
     private val eraserPaint: Paint

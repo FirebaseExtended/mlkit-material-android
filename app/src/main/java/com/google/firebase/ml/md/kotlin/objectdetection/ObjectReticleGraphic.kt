@@ -30,7 +30,8 @@ import com.google.firebase.ml.md.kotlin.camera.CameraReticleAnimator
  * A camera reticle that locates at the center of canvas to indicate the system is active but has
  * not recognized an object yet.
  */
-internal class ObjectReticleGraphic(overlay: GraphicOverlay, private val animator: CameraReticleAnimator) : Graphic(overlay) {
+internal class ObjectReticleGraphic(overlay: GraphicOverlay, private val animator: CameraReticleAnimator) :
+    Graphic(overlay) {
 
     private val outerRingFillPaint: Paint
     private val outerRingStrokePaint: Paint
@@ -46,27 +47,26 @@ internal class ObjectReticleGraphic(overlay: GraphicOverlay, private val animato
     init {
 
         val resources = overlay.resources
-        outerRingFillPaint = Paint().apply{
+        outerRingFillPaint = Paint().apply {
             style = Style.FILL
             color = ContextCompat.getColor(context, R.color.object_reticle_outer_ring_fill)
         }
 
-        outerRingStrokePaint = Paint().apply{
+        outerRingStrokePaint = Paint().apply {
             style = Style.STROKE
             strokeWidth = resources.getDimensionPixelOffset(R.dimen.object_reticle_outer_ring_stroke_width).toFloat()
             strokeCap = Cap.ROUND
             color = ContextCompat.getColor(context, R.color.object_reticle_outer_ring_stroke)
         }
 
-        innerRingStrokePaint = Paint().apply{
+        innerRingStrokePaint = Paint().apply {
             style = Style.STROKE
             strokeWidth = resources.getDimensionPixelOffset(R.dimen.object_reticle_inner_ring_stroke_width).toFloat()
             strokeCap = Cap.ROUND
             color = ContextCompat.getColor(context, R.color.white)
         }
 
-
-        ripplePaint = Paint().apply{
+        ripplePaint = Paint().apply {
             style = Style.STROKE
             color = ContextCompat.getColor(context, R.color.reticle_ripple)
         }

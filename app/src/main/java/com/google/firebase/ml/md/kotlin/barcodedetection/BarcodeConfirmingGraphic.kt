@@ -23,7 +23,8 @@ import com.google.firebase.ml.md.kotlin.settings.PreferenceUtils
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
 
 /** Guides user to move camera closer to confirm the detected barcode.  */
-internal class BarcodeConfirmingGraphic(overlay: GraphicOverlay, private val barcode: FirebaseVisionBarcode) : BarcodeGraphicBase(overlay) {
+internal class BarcodeConfirmingGraphic(overlay: GraphicOverlay, private val barcode: FirebaseVisionBarcode) :
+    BarcodeGraphicBase(overlay) {
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
@@ -38,7 +39,6 @@ internal class BarcodeConfirmingGraphic(overlay: GraphicOverlay, private val bar
             path.lineTo(boxRect.right, boxRect.bottom)
             path.lineTo(boxRect.left, boxRect.bottom)
             path.close()
-
         } else {
             path.moveTo(boxRect.left, boxRect.top + boxRect.height() * sizeProgress)
             path.lineTo(boxRect.left, boxRect.top)

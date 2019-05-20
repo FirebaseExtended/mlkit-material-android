@@ -61,9 +61,9 @@ class WorkflowModel(application: Application) : AndroidViewModel(application) {
 
     @MainThread
     fun setWorkflowState(workflowState: WorkflowState) {
-        if (workflowState != WorkflowState.CONFIRMED
-                && workflowState != WorkflowState.SEARCHING
-                && workflowState != WorkflowState.SEARCHED) {
+        if (workflowState != WorkflowState.CONFIRMED &&
+                workflowState != WorkflowState.SEARCHING &&
+                workflowState != WorkflowState.SEARCHED) {
             confirmedObject = null
         }
         this.workflowState.value = workflowState
