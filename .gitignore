@@ -1,6 +1,14 @@
-*.iml
 .gradle
 local.properties
-.idea/
+.idea
+build/
 .DS_Store
-build
+*.iml
+*.apk
+*.aar
+*.zip
+google-services.json
+
+.project
+.settings
+.classpath
