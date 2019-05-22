@@ -50,7 +50,7 @@ class BarcodeProcessor(graphicOverlay: GraphicOverlay, private val workflowModel
 
         if (!workflowModel.isCameraLive) return
 
-        Log.d(TAG, "Barcode result size: " + results.size)
+        Log.d(TAG, "Barcode result size: ${results.size}")
 
         // Picks the barcode, if exists, that covers the center of graphic overlay.
 

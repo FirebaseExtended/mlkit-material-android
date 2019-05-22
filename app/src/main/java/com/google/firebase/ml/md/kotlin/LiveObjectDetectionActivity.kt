@@ -237,7 +237,7 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
                     return@Observer
                 }
                 currentWorkflowState = workflowState
-                Log.d(TAG, "Current workflow state: " + workflowState.name)
+                Log.d(TAG, "Current workflow state: ${workflowState.name}")
 
                 if (PreferenceUtils.isAutoSearchEnabled(this@LiveObjectDetectionActivity)) {
                     stateChangeInAutoSearchMode(workflowState)

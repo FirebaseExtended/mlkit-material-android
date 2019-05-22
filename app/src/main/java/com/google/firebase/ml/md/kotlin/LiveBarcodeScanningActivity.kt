@@ -152,7 +152,7 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
             }
 
             currentWorkflowState = workflowState
-            Log.d(TAG, "Current workflow state: " + currentWorkflowState!!.name)
+            Log.d(TAG, "Current workflow state: ${currentWorkflowState!!.name}")
 
             val wasPromptChipGone = bottomPromptChip.visibility == View.GONE
 

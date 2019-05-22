@@ -72,7 +72,7 @@ abstract class FrameProcessorBase<T> : FrameProcessor {
         val startMs = SystemClock.elapsedRealtime()
         detectInImage(image)
                 .addOnSuccessListener { results ->
-                    Log.d(TAG, "Latency is: " + (SystemClock.elapsedRealtime() - startMs))
+                    Log.d(TAG, "Latency is: ${SystemClock.elapsedRealtime() - startMs}")
                     this@FrameProcessorBase.onSuccess(image, results, graphicOverlay)
                     processLatestFrame(graphicOverlay)
                 }

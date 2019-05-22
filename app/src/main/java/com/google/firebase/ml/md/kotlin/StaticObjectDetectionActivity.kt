@@ -233,7 +233,7 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
     }
 
     private fun onSearchCompleted(detectedObject: DetectedObject, productList: List<Product>) {
-        Log.d(TAG, "Search completed for object index: " + detectedObject.objectIndex)
+        Log.d(TAG, "Search completed for object index: ${detectedObject.objectIndex}")
         searchedObjectMap[detectedObject.objectIndex] = SearchedObject(resources, detectedObject, productList)
         if (searchedObjectMap.size < detectedObjectNum) {
             // Hold off showing the result until the search of all detected objects completes.

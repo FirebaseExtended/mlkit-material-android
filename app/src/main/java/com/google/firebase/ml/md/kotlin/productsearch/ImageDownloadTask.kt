@@ -40,7 +40,7 @@ internal class ImageDownloadTask(private val imageView: ImageView, private val m
             bitmap = BitmapFactory.decodeStream(inputStream)
             inputStream.close()
         } catch (e: Exception) {
-            Log.e(TAG, "Image download failed: " + urls[0])
+            Log.e(TAG, "Image download failed: ${urls[0]}")
         }
 
         if (bitmap != null && bitmap.width > maxImageWidth) {
@@ -51,7 +51,7 @@ internal class ImageDownloadTask(private val imageView: ImageView, private val m
     }
 
     override fun onPostExecute(result: Bitmap?) {
-        if (result != null) {
+        result?.let {
             imageView.setImageBitmap(result)
         }
     }
