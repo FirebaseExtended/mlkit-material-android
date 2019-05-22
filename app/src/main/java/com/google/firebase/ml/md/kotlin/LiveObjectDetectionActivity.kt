@@ -357,7 +357,8 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
             }
         }
 
-        val shouldPlaySearchButtonEnteringAnimation = wasSearchButtonGone && productSearchButton.visibility == View.VISIBLE
+        val shouldPlaySearchButtonEnteringAnimation =
+                wasSearchButtonGone && productSearchButton.visibility == View.VISIBLE
         searchButtonAnimator?.let {
             if (shouldPlaySearchButtonEnteringAnimation && !it.isRunning){
                 it.start()
