@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/firebase/mlkit-material-android.svg?branch=master)](https://travis-ci.org/firebase/mlkit-material-android)
+
 # ML Kit Showcase App with Material Design
 
 This app demonstrates how to build an end-to-end user experience with 
