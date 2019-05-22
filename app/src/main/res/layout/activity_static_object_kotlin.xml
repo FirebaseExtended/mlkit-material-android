@@ -12,7 +12,7 @@
       android:layout_gravity="top"/>
 
   <ImageView
-      android:id="@+id/input_image_view"
+      android:id="@+id/inputImageView"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_marginTop="@dimen/top_action_bar_height"
@@ -22,7 +22,7 @@
       android:contentDescription="@null"/>
 
   <FrameLayout
-      android:id="@+id/dot_view_container"
+      android:id="@+id/dotViewContainer"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_marginTop="@dimen/top_action_bar_height"
@@ -30,7 +30,7 @@
       android:background="@color/transparent"/>
 
   <com.google.android.material.chip.Chip
-      android:id="@+id/bottom_prompt_chip"
+      android:id="@+id/bottomPromptChip"
       style="@style/Widget.MaterialComponents.Chip.Entry"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
       app:closeIconVisible="false"/>
 
   <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/card_recycler_view"
+      android:id="@+id/cardRecyclerView"
       android:layout_width="match_parent"
       android:layout_height="@dimen/preview_card_carousel_height"
       android:layout_gravity="bottom"
@@ -55,7 +55,7 @@
       android:paddingTop="@dimen/preview_card_carousel_padding_top"/>
 
   <FrameLayout
-      android:id="@+id/loading_view"
+      android:id="@+id/loadingView"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="@color/dark"
@@ -81,13 +81,13 @@
   </FrameLayout>
 
   <com.google.firebase.ml.md.kotlin.productsearch.BottomSheetScrimView
-      android:id="@+id/bottom_sheet_scrim_view"
+      android:id="@+id/bottomSheetScrimView"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:visibility="gone"/>
 
   <include
-      android:id="@+id/bottom_sheet"
+      android:id="@+id/bottomSheet"
       layout="@layout/product_bottom_sheet"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

@@ -27,30 +27,24 @@ import android.view.View.OnClickListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.chip.Chip
 import com.google.common.base.Objects
 import com.google.firebase.ml.md.R
-import com.google.firebase.ml.md.kotlin.camera.GraphicOverlay
 import com.google.firebase.ml.md.kotlin.camera.WorkflowModel
 import com.google.firebase.ml.md.kotlin.camera.WorkflowModel.WorkflowState
 import com.google.firebase.ml.md.kotlin.barcodedetection.BarcodeField
 import com.google.firebase.ml.md.kotlin.barcodedetection.BarcodeProcessor
 import com.google.firebase.ml.md.kotlin.barcodedetection.BarcodeResultFragment
 import com.google.firebase.ml.md.kotlin.camera.CameraSource
-import com.google.firebase.ml.md.kotlin.camera.CameraSourcePreview
 import com.google.firebase.ml.md.kotlin.settings.SettingsActivity
+import kotlinx.android.synthetic.main.activity_live_barcode_kotlin.*
+import kotlinx.android.synthetic.main.camera_preview_overlay_kotlin.*
+import kotlinx.android.synthetic.main.top_action_bar_in_live_camera.*
 import java.io.IOException
-import java.util.ArrayList
 
 /** Demonstrates the barcode scanning workflow using camera preview.  */
 class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
 
     private var cameraSource: CameraSource? = null
-    private var preview: CameraSourcePreview? = null
-    private var graphicOverlay: GraphicOverlay? = null
-    private var settingsButton: View? = null
-    private var flashButton: View? = null
-    private var promptChip: Chip? = null
     private var promptChipAnimator: AnimatorSet? = null
     private var workflowModel: WorkflowModel? = null
     private var currentWorkflowState: WorkflowState? = null
@@ -59,25 +53,21 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_live_barcode_kotlin)
-        preview = findViewById(R.id.camera_preview)
-        graphicOverlay = findViewById<GraphicOverlay>(R.id.camera_preview_graphic_overlay).apply {
+        with(cameraPreviewGraphicOverlay) {
             setOnClickListener(this@LiveBarcodeScanningActivity)
             cameraSource = CameraSource(this)
         }
 
-        promptChip = findViewById(R.id.bottom_prompt_chip)
         promptChipAnimator =
             (AnimatorInflater.loadAnimator(this, R.animator.bottom_prompt_chip_enter) as AnimatorSet).apply {
-                setTarget(promptChip)
+                setTarget(bottomPromptChip)
             }
 
-        findViewById<View>(R.id.close_button).setOnClickListener(this)
-        flashButton = findViewById<View>(R.id.flash_button).apply {
-            setOnClickListener(this@LiveBarcodeScanningActivity)
-        }
-        settingsButton = findViewById<View>(R.id.settings_button).apply {
-            setOnClickListener(this@LiveBarcodeScanningActivity)
-        }
+        closeButton.setOnClickListener(this)
+
+        flashButton.setOnClickListener(this@LiveBarcodeScanningActivity)
+
+        settingsButton.setOnClickListener(this@LiveBarcodeScanningActivity)
 
         setUpWorkflowModel()
     }
@@ -86,9 +76,9 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
         super.onResume()
 
         workflowModel?.markCameraFrozen()
-        settingsButton?.isEnabled = true
+        settingsButton.isEnabled = true
         currentWorkflowState = WorkflowState.NOT_STARTED
-        cameraSource?.setFrameProcessor(BarcodeProcessor(graphicOverlay!!, workflowModel!!))
+        cameraSource?.setFrameProcessor(BarcodeProcessor(cameraPreviewGraphicOverlay, workflowModel!!))
         workflowModel?.setWorkflowState(WorkflowState.DETECTING)
     }
 
@@ -111,20 +101,17 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.close_button -> onBackPressed()
-            R.id.flash_button -> {
-                flashButton?.let {
-                    if (it.isSelected) {
-                        it.isSelected = false
-                        cameraSource?.updateFlashMode(Camera.Parameters.FLASH_MODE_OFF)
-                    } else {
-                        it.isSelected = true
-                        cameraSource!!.updateFlashMode(Camera.Parameters.FLASH_MODE_TORCH)
-                    }
+            R.id.closeButton -> onBackPressed()
+            R.id.flashButton -> {
+                if (flashButton.isSelected) {
+                    cameraSource?.updateFlashMode(Camera.Parameters.FLASH_MODE_OFF)
+                } else {
+                    cameraSource!!.updateFlashMode(Camera.Parameters.FLASH_MODE_TORCH)
                 }
+                flashButton.isSelected = !flashButton.isSelected
             }
-            R.id.settings_button -> {
-                settingsButton?.isEnabled = false
+            R.id.settingsButton -> {
+                settingsButton.isEnabled = false
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
         }
@@ -136,7 +123,7 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
         if (!workflowModel.isCameraLive) {
             try {
                 workflowModel.markCameraLive()
-                preview?.start(cameraSource)
+                cameraPreview.start(cameraSource)
             } catch (e: IOException) {
                 Log.e(TAG, "Failed to start camera preview!", e)
                 cameraSource.release()
@@ -149,8 +136,8 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
         val workflowModel = this.workflowModel ?: return
         if (workflowModel.isCameraLive) {
             workflowModel.markCameraFrozen()
-            flashButton?.isSelected = false
-            preview?.stop()
+            flashButton.isSelected = false
+            cameraPreview.stop()
         }
     }
 
@@ -167,41 +154,42 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
             currentWorkflowState = workflowState
             Log.d(TAG, "Current workflow state: " + currentWorkflowState!!.name)
 
-            val wasPromptChipGone = promptChip?.visibility == View.GONE
+            val wasPromptChipGone = bottomPromptChip.visibility == View.GONE
 
             when (workflowState) {
                 WorkflowState.DETECTING -> {
-                    promptChip?.visibility = View.VISIBLE
-                    promptChip?.setText(R.string.prompt_point_at_a_barcode)
+                    bottomPromptChip.visibility = View.VISIBLE
+                    bottomPromptChip.setText(R.string.prompt_point_at_a_barcode)
                     startCameraPreview()
                 }
                 WorkflowState.CONFIRMING -> {
-                    promptChip?.visibility = View.VISIBLE
-                    promptChip?.setText(R.string.prompt_move_camera_closer)
+                    bottomPromptChip.visibility = View.VISIBLE
+                    bottomPromptChip.setText(R.string.prompt_move_camera_closer)
                     startCameraPreview()
                 }
                 WorkflowState.SEARCHING -> {
-                    promptChip?.visibility = View.VISIBLE
-                    promptChip?.setText(R.string.prompt_searching)
+                    bottomPromptChip.visibility = View.VISIBLE
+                    bottomPromptChip.setText(R.string.prompt_searching)
                     stopCameraPreview()
                 }
                 WorkflowState.DETECTED, WorkflowState.SEARCHED -> {
-                    promptChip?.visibility = View.GONE
+                    bottomPromptChip.visibility = View.GONE
                     stopCameraPreview()
                 }
-                else -> promptChip?.visibility = View.GONE
+                else -> bottomPromptChip.visibility = View.GONE
             }
 
-            val shouldPlayPromptChipEnteringAnimation = wasPromptChipGone && promptChip?.visibility == View.VISIBLE
+            val shouldPlayPromptChipEnteringAnimation = wasPromptChipGone && bottomPromptChip.visibility == View.VISIBLE
             promptChipAnimator?.let {
-                if (shouldPlayPromptChipEnteringAnimation && !it.isRunning) it.start()
+                if (shouldPlayPromptChipEnteringAnimation && !it.isRunning) {
+                    it.start()
+                }
             }
         })
 
         workflowModel?.detectedBarcode?.observe(this, Observer { barcode ->
-            if (barcode != null) {
-                val barcodeFieldList = ArrayList<BarcodeField>()
-                barcodeFieldList.add(BarcodeField("Raw Value", barcode.rawValue ?: ""))
+            barcode?.let {
+                val barcodeFieldList = arrayListOf(BarcodeField("Raw Value", barcode.rawValue ?: ""))
                 BarcodeResultFragment.show(supportFragmentManager, barcodeFieldList)
             }
         })

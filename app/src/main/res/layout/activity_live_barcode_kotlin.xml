@@ -6,7 +6,7 @@
     android:keepScreenOn="true">
 
   <com.google.firebase.ml.md.kotlin.camera.CameraSourcePreview
-      android:id="@+id/camera_preview"
+      android:id="@+id/cameraPreview"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 

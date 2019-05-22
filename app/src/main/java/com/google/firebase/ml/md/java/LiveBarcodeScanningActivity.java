@@ -61,20 +61,20 @@ public class LiveBarcodeScanningActivity extends AppCompatActivity implements On
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_live_barcode);
-    preview = findViewById(R.id.camera_preview);
-    graphicOverlay = findViewById(R.id.camera_preview_graphic_overlay);
+    preview = findViewById(R.id.cameraPreview);
+    graphicOverlay = findViewById(R.id.cameraPreviewGraphicOverlay);
     graphicOverlay.setOnClickListener(this);
     cameraSource = new CameraSource(graphicOverlay);
 
-    promptChip = findViewById(R.id.bottom_prompt_chip);
+    promptChip = findViewById(R.id.bottomPromptChip);
     promptChipAnimator =
         (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.bottom_prompt_chip_enter);
     promptChipAnimator.setTarget(promptChip);
 
-    findViewById(R.id.close_button).setOnClickListener(this);
-    flashButton = findViewById(R.id.flash_button);
+    findViewById(R.id.closeButton).setOnClickListener(this);
+    flashButton = findViewById(R.id.flashButton);
     flashButton.setOnClickListener(this);
-    settingsButton = findViewById(R.id.settings_button);
+    settingsButton = findViewById(R.id.settingsButton);
     settingsButton.setOnClickListener(this);
 
     setUpWorkflowModel();
@@ -116,10 +116,10 @@ public class LiveBarcodeScanningActivity extends AppCompatActivity implements On
   @Override
   public void onClick(View view) {
     int id = view.getId();
-    if (id == R.id.close_button) {
+    if (id == R.id.closeButton) {
       onBackPressed();
 
-    } else if (id == R.id.flash_button) {
+    } else if (id == R.id.flashButton) {
       if (flashButton.isSelected()) {
         flashButton.setSelected(false);
         cameraSource.updateFlashMode(Camera.Parameters.FLASH_MODE_OFF);
@@ -128,7 +128,7 @@ public class LiveBarcodeScanningActivity extends AppCompatActivity implements On
         cameraSource.updateFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
       }
 
-    } else if (id == R.id.settings_button) {
+    } else if (id == R.id.settingsButton) {
       // Sets as disabled to prevent the user from clicking on it too fast.
       settingsButton.setEnabled(false);
       startActivity(new Intent(this, SettingsActivity.class));

@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     setContentView(R.layout.activity_main);
 
-    RecyclerView modeRecyclerView = findViewById(R.id.mode_recycler_view);
+    RecyclerView modeRecyclerView = findViewById(R.id.modeRecyclerView);
     modeRecyclerView.setHasFixedSize(true);
     modeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     modeRecyclerView.setAdapter(new ModeItemAdapter(DetectionMode.values()));

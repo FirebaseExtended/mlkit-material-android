@@ -7,7 +7,7 @@
     android:keepScreenOn="true">
 
   <com.google.firebase.ml.md.java.camera.CameraSourcePreview
-      android:id="@+id/camera_preview"
+      android:id="@+id/cameraPreview"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
@@ -22,13 +22,13 @@
       android:layout_gravity="top"/>
 
   <com.google.firebase.ml.md.java.productsearch.BottomSheetScrimView
-      android:id="@+id/bottom_sheet_scrim_view"
+      android:id="@+id/bottomSheetScrimView"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:visibility="gone"/>
 
   <include
-      android:id="@+id/bottom_sheet"
+      android:id="@+id/bottomSheet"
       layout="@layout/product_bottom_sheet"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

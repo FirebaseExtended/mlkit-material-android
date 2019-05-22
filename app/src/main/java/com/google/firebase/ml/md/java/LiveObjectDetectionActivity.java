@@ -90,30 +90,30 @@ public class LiveObjectDetectionActivity extends AppCompatActivity implements On
     searchEngine = new SearchEngine(getApplicationContext());
 
     setContentView(R.layout.activity_live_object);
-    preview = findViewById(R.id.camera_preview);
-    graphicOverlay = findViewById(R.id.camera_preview_graphic_overlay);
+    preview = findViewById(R.id.cameraPreview);
+    graphicOverlay = findViewById(R.id.cameraPreviewGraphicOverlay);
     graphicOverlay.setOnClickListener(this);
     cameraSource = new CameraSource(graphicOverlay);
 
-    promptChip = findViewById(R.id.bottom_prompt_chip);
+    promptChip = findViewById(R.id.bottomPromptChip);
     promptChipAnimator =
         (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.bottom_prompt_chip_enter);
     promptChipAnimator.setTarget(promptChip);
 
-    searchButton = findViewById(R.id.product_search_button);
+    searchButton = findViewById(R.id.productSearchButton);
     searchButton.setOnClickListener(this);
     searchButtonAnimator =
         (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.search_button_enter);
     searchButtonAnimator.setTarget(searchButton);
 
-    searchProgressBar = findViewById(R.id.search_progress_bar);
+    searchProgressBar = findViewById(R.id.searchProgressBar);
 
     setUpBottomSheet();
 
-    findViewById(R.id.close_button).setOnClickListener(this);
-    flashButton = findViewById(R.id.flash_button);
+    findViewById(R.id.closeButton).setOnClickListener(this);
+    flashButton = findViewById(R.id.flashButton);
     flashButton.setOnClickListener(this);
-    settingsButton = findViewById(R.id.settings_button);
+    settingsButton = findViewById(R.id.settingsButton);
     settingsButton.setOnClickListener(this);
 
     setUpWorkflowModel();
@@ -163,17 +163,17 @@ public class LiveObjectDetectionActivity extends AppCompatActivity implements On
   @Override
   public void onClick(View view) {
     int id = view.getId();
-    if (id == R.id.product_search_button) {
+    if (id == R.id.productSearchButton) {
       searchButton.setEnabled(false);
       workflowModel.onSearchButtonClicked();
 
-    } else if (id == R.id.bottom_sheet_scrim_view) {
+    } else if (id == R.id.bottomSheetScrimView) {
       bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
-    } else if (id == R.id.close_button) {
+    } else if (id == R.id.closeButton) {
       onBackPressed();
 
-    } else if (id == R.id.flash_button) {
+    } else if (id == R.id.flashButton) {
       if (flashButton.isSelected()) {
         flashButton.setSelected(false);
         cameraSource.updateFlashMode(Camera.Parameters.FLASH_MODE_OFF);
@@ -182,7 +182,7 @@ public class LiveObjectDetectionActivity extends AppCompatActivity implements On
         cameraSource.updateFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
       }
 
-    } else if (id == R.id.settings_button) {
+    } else if (id == R.id.settingsButton) {
       // Sets as disabled to prevent the user from clicking on it too fast.
       settingsButton.setEnabled(false);
       startActivity(new Intent(this, SettingsActivity.class));
@@ -212,7 +212,7 @@ public class LiveObjectDetectionActivity extends AppCompatActivity implements On
   }
 
   private void setUpBottomSheet() {
-    bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
+    bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheet));
     bottomSheetBehavior.setBottomSheetCallback(
         new BottomSheetBehavior.BottomSheetCallback() {
           @Override
@@ -263,11 +263,11 @@ public class LiveObjectDetectionActivity extends AppCompatActivity implements On
           }
         });
 
-    bottomSheetScrimView = findViewById(R.id.bottom_sheet_scrim_view);
+    bottomSheetScrimView = findViewById(R.id.bottomSheetScrimView);
     bottomSheetScrimView.setOnClickListener(this);
 
-    bottomSheetTitleView = findViewById(R.id.bottom_sheet_title);
-    productRecyclerView = findViewById(R.id.product_recycler_view);
+    bottomSheetTitleView = findViewById(R.id.bottomSheetTitle);
+    productRecyclerView = findViewById(R.id.productRecyclerView);
     productRecyclerView.setHasFixedSize(true);
     productRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     productRecyclerView.setAdapter(new ProductAdapter(ImmutableList.of()));

@@ -8,7 +8,7 @@
     android:background="@drawable/top_action_bar_scrim">
 
   <ImageView
-      android:id="@+id/close_button"
+      android:id="@+id/closeButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="start"
@@ -17,7 +17,7 @@
       app:srcCompat="@drawable/ic_close_vd_white_24"/>
 
   <ImageView
-      android:id="@+id/settings_button"
+      android:id="@+id/settingsButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
@@ -26,10 +26,10 @@
       app:srcCompat="@drawable/ic_settings_vd_white_24"/>
 
   <ImageView
-      android:id="@+id/flash_button"
+      android:id="@+id/flashButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_toStartOf="@id/settings_button"
+      android:layout_toStartOf="@id/settingsButton"
       android:padding="@dimen/top_action_button_padding"
       android:contentDescription="@string/cd_flash_button"
       app:srcCompat="@drawable/camera_flash"/>
