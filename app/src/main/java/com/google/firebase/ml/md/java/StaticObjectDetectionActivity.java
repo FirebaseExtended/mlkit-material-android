@@ -98,25 +98,25 @@ public class StaticObjectDetectionActivity extends AppCompatActivity
 
     setContentView(R.layout.activity_static_object);
 
-    loadingView = findViewById(R.id.loadingView);
+    loadingView = findViewById(R.id.loading_view);
     loadingView.setOnClickListener(this);
 
-    bottomPromptChip = findViewById(R.id.bottomPromptChip);
-    inputImageView = findViewById(R.id.inputImageView);
+    bottomPromptChip = findViewById(R.id.bottom_prompt_chip);
+    inputImageView = findViewById(R.id.input_image_view);
 
-    previewCardCarousel = findViewById(R.id.cardRecyclerView);
+    previewCardCarousel = findViewById(R.id.card_recycler_view);
     previewCardCarousel.setHasFixedSize(true);
     previewCardCarousel.setLayoutManager(
         new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
     previewCardCarousel.addItemDecoration(new CardItemDecoration(getResources()));
 
-    dotViewContainer = findViewById(R.id.dotViewContainer);
+    dotViewContainer = findViewById(R.id.dot_view_container);
     dotViewSize = getResources().getDimensionPixelOffset(R.dimen.static_image_dot_view_size);
 
     setUpBottomSheet();
 
-    findViewById(R.id.closeButton).setOnClickListener(this);
-    findViewById(R.id.photoLibraryButton).setOnClickListener(this);
+    findViewById(R.id.close_button).setOnClickListener(this);
+    findViewById(R.id.photo_library_button).setOnClickListener(this);
 
     detector =
         FirebaseVision.getInstance()
@@ -165,11 +165,11 @@ public class StaticObjectDetectionActivity extends AppCompatActivity
   @Override
   public void onClick(View view) {
     int id = view.getId();
-    if (id == R.id.closeButton) {
+    if (id == R.id.close_button) {
       onBackPressed();
-    } else if (id == R.id.photoLibraryButton) {
+    } else if (id == R.id.photo_library_button) {
       Utils.openImagePicker(this);
-    } else if (id == R.id.bottomSheetScrimView) {
+    } else if (id == R.id.bottom_sheet_scrim_view) {
       bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     }
   }
@@ -192,7 +192,7 @@ public class StaticObjectDetectionActivity extends AppCompatActivity
   }
 
   private void setUpBottomSheet() {
-    bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheet));
+    bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
     bottomSheetBehavior.setBottomSheetCallback(
         new BottomSheetBehavior.BottomSheetCallback() {
           @Override
@@ -219,11 +219,11 @@ public class StaticObjectDetectionActivity extends AppCompatActivity
         });
     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
-    bottomSheetScrimView = findViewById(R.id.bottomSheetScrimView);
+    bottomSheetScrimView = findViewById(R.id.bottom_sheet_scrim_view);
     bottomSheetScrimView.setOnClickListener(this);
 
-    bottomSheetTitleView = findViewById(R.id.bottomSheetTitle);
-    productRecyclerView = findViewById(R.id.productRecyclerView);
+    bottomSheetTitleView = findViewById(R.id.bottom_sheet_title);
+    productRecyclerView = findViewById(R.id.product_recycler_view);
     productRecyclerView.setHasFixedSize(true);
     productRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     productRecyclerView.setAdapter(new ProductAdapter(ImmutableList.of()));

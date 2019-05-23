@@ -42,7 +42,7 @@ class CameraSourcePreview(context: Context, attrs: AttributeSet) : FrameLayout(c
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        graphicOverlay = findViewById(R.id.cameraPreviewGraphicOverlay)
+        graphicOverlay = findViewById(R.id.camera_preview_graphic_overlay)
     }
 
     @Throws(IOException::class)

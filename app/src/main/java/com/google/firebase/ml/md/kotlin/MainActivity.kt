@@ -28,7 +28,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.ml.md.R
-import kotlinx.android.synthetic.main.activity_main.*
 
 /** Entry activity to select the detection mode.  */
 class MainActivity : AppCompatActivity() {
@@ -44,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_main)
-        with(modeRecyclerView) {
+        findViewById<RecyclerView>(R.id.mode_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = ModeItemAdapter(DetectionMode.values())
@@ -76,7 +75,8 @@ class MainActivity : AppCompatActivity() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModeItemViewHolder {
             return ModeItemViewHolder(
                     LayoutInflater.from(parent.context)
-                            .inflate(R.layout.detection_mode_item, parent, false)
+                            .inflate(R.layout.detection_mode_item, parent, false
+                            )
             )
         }
 

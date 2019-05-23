@@ -49,7 +49,7 @@ public class CameraSourcePreview extends FrameLayout {
   @Override
   protected void onFinishInflate() {
     super.onFinishInflate();
-    graphicOverlay = findViewById(R.id.cameraPreviewGraphicOverlay);
+    graphicOverlay = findViewById(R.id.camera_preview_graphic_overlay);
   }
 
   public void start(CameraSource cameraSource) throws IOException {

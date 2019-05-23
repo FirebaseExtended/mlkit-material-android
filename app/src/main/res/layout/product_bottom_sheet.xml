@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
   <TextView
-      android:id="@+id/bottomSheetTitle"
+      android:id="@+id/bottom_sheet_title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/bottom_sheet_title_margin"
@@ -22,7 +22,7 @@
       android:background="@color/lighter_grey"/>
 
   <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/productRecyclerView"
+      android:id="@+id/product_recycler_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:scrollbars="vertical"/>

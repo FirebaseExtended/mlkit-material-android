@@ -29,14 +29,19 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.chip.Chip
 import com.google.common.collect.ImmutableList
 import com.google.firebase.ml.md.R
+import com.google.firebase.ml.md.kotlin.productsearch.BottomSheetScrimView
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.objects.FirebaseVisionObject
@@ -49,9 +54,6 @@ import com.google.firebase.ml.md.kotlin.productsearch.Product
 import com.google.firebase.ml.md.kotlin.productsearch.ProductAdapter
 import com.google.firebase.ml.md.kotlin.productsearch.SearchEngine
 import com.google.firebase.ml.md.kotlin.productsearch.SearchedObject
-import kotlinx.android.synthetic.main.activity_static_object_kotlin.*
-import kotlinx.android.synthetic.main.product_bottom_sheet.*
-import kotlinx.android.synthetic.main.top_action_bar_in_static_image.*
 import java.io.IOException
 import java.lang.NullPointerException
 import java.util.TreeMap
@@ -61,7 +63,16 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
 
     private val searchedObjectMap = TreeMap<Int, SearchedObject>()
 
+    private var loadingView: View? = null
+    private var bottomPromptChip: Chip? = null
+    private var inputImageView: ImageView? = null
+    private var previewCardCarousel: RecyclerView? = null
+    private var dotViewContainer: ViewGroup? = null
+
     private var bottomSheetBehavior: BottomSheetBehavior<View>? = null
+    private var bottomSheetScrimView: BottomSheetScrimView? = null
+    private var bottomSheetTitleView: TextView? = null
+    private var productRecyclerView: RecyclerView? = null
 
     private var inputBitmap: Bitmap? = null
     private var searchedObjectForBottomSheet: SearchedObject? = null
@@ -79,20 +90,26 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
 
         setContentView(R.layout.activity_static_object_kotlin)
 
-        loadingView.setOnClickListener(this@StaticObjectDetectionActivity)
+        loadingView = findViewById<View>(R.id.loading_view).apply {
+            setOnClickListener(this@StaticObjectDetectionActivity)
+        }
 
-        with(cardRecyclerView) {
+        bottomPromptChip = findViewById(R.id.bottom_prompt_chip)
+        inputImageView = findViewById(R.id.input_image_view)
+
+        previewCardCarousel = findViewById<RecyclerView>(R.id.card_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@StaticObjectDetectionActivity, RecyclerView.HORIZONTAL, false)
             addItemDecoration(CardItemDecoration(resources))
         }
 
+        dotViewContainer = findViewById(R.id.dot_view_container)
         dotViewSize = resources.getDimensionPixelOffset(R.dimen.static_image_dot_view_size)
 
         setUpBottomSheet()
 
-        closeButton.setOnClickListener(this)
-        photoLibraryButton.setOnClickListener(this)
+        findViewById<View>(R.id.close_button).setOnClickListener(this)
+        findViewById<View>(R.id.photo_library_button).setOnClickListener(this)
 
         detector = FirebaseVision.getInstance()
                 .getOnDeviceObjectDetector(
@@ -135,31 +152,31 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.closeButton -> onBackPressed()
-            R.id.photoLibraryButton -> Utils.openImagePicker(this)
-            R.id.bottomSheetScrimView -> bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+            R.id.close_button -> onBackPressed()
+            R.id.photo_library_button -> Utils.openImagePicker(this)
+            R.id.bottom_sheet_scrim_view -> bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
     }
 
     private fun showSearchResults(searchedObject: SearchedObject) {
         searchedObjectForBottomSheet = searchedObject
         val productList = searchedObject.productList
-        bottomSheetTitle.text = resources
+        bottomSheetTitleView?.text = resources
                 .getQuantityString(
                         R.plurals.bottom_sheet_title, productList.size, productList.size)
-        productRecyclerView.adapter = ProductAdapter(productList)
-        bottomSheetBehavior?.peekHeight = (inputImageView.parent as View).height / 2
+        productRecyclerView?.adapter = ProductAdapter(productList)
+        bottomSheetBehavior?.peekHeight = (inputImageView?.parent as View).height / 2
         bottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     private fun setUpBottomSheet() {
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet).apply {
+        bottomSheetBehavior = BottomSheetBehavior.from(findViewById<View>(R.id.bottom_sheet)).apply {
 
             setBottomSheetCallback(
                     object : BottomSheetBehavior.BottomSheetCallback() {
                         override fun onStateChanged(bottomSheet: View, newState: Int) {
                             Log.d(TAG, "Bottom sheet new state: $newState")
-                            bottomSheetScrimView.visibility =
+                            bottomSheetScrimView?.visibility =
                                 if (newState == BottomSheetBehavior.STATE_HIDDEN) View.GONE else View.VISIBLE
                         }
 
@@ -171,7 +188,7 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
                             val collapsedStateHeight = Math.min(bottomSheetBehavior!!.peekHeight, bottomSheet.height)
                             val searchedObjectForBottomSheet = searchedObjectForBottomSheet
                                     ?: return
-                            bottomSheetScrimView.updateWithThumbnailTranslate(
+                            bottomSheetScrimView?.updateWithThumbnailTranslate(
                                     searchedObjectForBottomSheet.getObjectThumbnail(),
                                     collapsedStateHeight,
                                     slideOffset,
@@ -182,21 +199,24 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
             state = BottomSheetBehavior.STATE_HIDDEN
         }
 
-        bottomSheetScrimView.setOnClickListener(this@StaticObjectDetectionActivity)
+        bottomSheetScrimView = findViewById<BottomSheetScrimView>(R.id.bottom_sheet_scrim_view).apply {
+            setOnClickListener(this@StaticObjectDetectionActivity)
+        }
 
-        with(productRecyclerView) {
+        bottomSheetTitleView = findViewById(R.id.bottom_sheet_title)
+        productRecyclerView = findViewById<RecyclerView>(R.id.product_recycler_view)?.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@StaticObjectDetectionActivity)
-            adapter = ProductAdapter(listOf())
+            adapter = ProductAdapter(ImmutableList.of())
         }
     }
 
     private fun detectObjects(imageUri: Uri) {
-        inputImageView.setImageDrawable(null)
-        bottomPromptChip.visibility = View.GONE
-        cardRecyclerView.adapter = PreviewCardAdapter(listOf()) { showSearchResults(it) }
-        cardRecyclerView.clearOnScrollListeners()
-        dotViewContainer.removeAllViews()
+        inputImageView?.setImageDrawable(null)
+        bottomPromptChip?.visibility = View.GONE
+        previewCardCarousel?.adapter = PreviewCardAdapter(ImmutableList.of()) { showSearchResults(it) }
+        previewCardCarousel?.clearOnScrollListeners()
+        dotViewContainer?.removeAllViews()
         currentSelectedObjectIndex = 0
 
         try {
@@ -207,12 +227,12 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
             return
         }
 
-        inputImageView.setImageBitmap(inputBitmap)
-        loadingView.visibility = View.VISIBLE
+        inputImageView?.setImageBitmap(inputBitmap)
+        loadingView?.visibility = View.VISIBLE
         val image = FirebaseVisionImage.fromBitmap(inputBitmap!!)
         detector?.processImage(image)
                 ?.addOnSuccessListener { objects -> onObjectsDetected(image, objects) }
-                ?.addOnFailureListener { onObjectsDetected(image, listOf()) }
+                ?.addOnFailureListener { onObjectsDetected(image, ImmutableList.of()) }
     }
 
     @MainThread
@@ -220,7 +240,7 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
         detectedObjectNum = objects.size
         Log.d(TAG, "Detected objects num: $detectedObjectNum")
         if (detectedObjectNum == 0) {
-            loadingView.visibility = View.GONE
+            loadingView?.visibility = View.GONE
             showBottomPromptChip(getString(R.string.static_image_prompt_detected_no_results))
         } else {
             searchedObjectMap.clear()
@@ -241,10 +261,10 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
         }
 
         showBottomPromptChip(getString(R.string.static_image_prompt_detected_results))
-        loadingView.visibility = View.GONE
-        cardRecyclerView.adapter =
+        loadingView?.visibility = View.GONE
+        previewCardCarousel?.adapter =
             PreviewCardAdapter(ImmutableList.copyOf(searchedObjectMap.values)) { showSearchResults(it) }
-        cardRecyclerView.addOnScrollListener(
+        previewCardCarousel?.addOnScrollListener(
                 object : RecyclerView.OnScrollListener() {
                     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                         Log.d(TAG, "New card scroll state: $newState")
@@ -271,11 +291,11 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
                 } else {
                     selectNewObject(searchedObject.objectIndex)
                     showSearchResults(searchedObject)
-                    cardRecyclerView.smoothScrollToPosition(searchedObject.objectIndex)
+                    previewCardCarousel!!.smoothScrollToPosition(searchedObject.objectIndex)
                 }
             }
 
-            dotViewContainer.addView(dotView)
+            dotViewContainer?.addView(dotView)
             val animatorSet = AnimatorInflater.loadAnimator(this, R.animator.static_image_dot_enter) as AnimatorSet
             animatorSet.setTarget(dotView)
             animatorSet.start()
@@ -334,8 +354,8 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
     }
 
     private fun showBottomPromptChip(message: String) {
-        bottomPromptChip.visibility = View.VISIBLE
-        bottomPromptChip.text = message
+        bottomPromptChip?.visibility = View.VISIBLE
+        bottomPromptChip?.text = message
     }
 
     private class CardItemDecoration constructor(resources: Resources) : RecyclerView.ItemDecoration() {
