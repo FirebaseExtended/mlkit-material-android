@@ -45,7 +45,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-ml-vision:20.0.0'
     implementation 'com.google.firebase:firebase-ml-vision-object-detection-model:16.0.0'
 
-    api 'com.google.guava:guava:27.1-android'
+    api 'com.google.guava:guava:27.1-jre'
 }
 
 apply plugin: 'com.google.gms.google-services'
