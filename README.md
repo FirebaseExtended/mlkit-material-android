@@ -58,7 +58,7 @@ card carousel etc.) to indicate the detected objects and search results.
 **Note** that the visual search functionality here is mock since no real search backend has set up 
 for this repository, but it should be easy to hook up with your own search service 
 (e.g. [Product Search](https://cloud.google.com/vision/product-search/docs)) by only replacing the 
-[SearchEngine](./app/src/main/java/com/google/firebase/ml/md/productsearch/SearchEngine.java) class implementation.
+[SearchEngine](./app/src/main/java/com/google/firebase/ml/md/java/productsearch/SearchEngine.java) class implementation.
 
 ## License
 © Google, 2019. Licensed under an [Apache-2](./LICENSE) license.
