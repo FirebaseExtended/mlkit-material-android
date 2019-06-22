@@ -21,7 +21,10 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.FrameLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.google.android.gms.common.images.Size;
 import com.google.firebase.ml.md.R;
 import com.google.firebase.ml.md.java.Utils;
@@ -38,7 +41,7 @@ public class CameraSourcePreview extends FrameLayout {
   private CameraSource cameraSource;
   private Size cameraPreviewSize;
 
-  public CameraSourcePreview(Context context, AttributeSet attrs) {
+  public CameraSourcePreview(@NonNull Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
 
     surfaceView = new SurfaceView(context);
@@ -98,18 +101,27 @@ public class CameraSourcePreview extends FrameLayout {
       }
     }
 
-    // Computes height and width for potentially doing fit width.
+    // Match the width of the child view to its parent.
     int childWidth = layoutWidth;
     int childHeight = (int) (childWidth / previewSizeRatio);
-
-    // If height is too tall using fit width, does fit height instead.
-    if (childHeight > layoutHeight) {
-      childHeight = layoutHeight;
-      childWidth = (int) (childHeight * previewSizeRatio);
-    }
-
-    for (int i = 0; i < getChildCount(); ++i) {
-      getChildAt(i).layout(0, 0, childWidth, childHeight);
+    if (childHeight <= layoutHeight) {
+      for (int i = 0; i < getChildCount(); ++i) {
+        getChildAt(i).layout(0, 0, childWidth, childHeight);
+      }
+    } else {
+      // When the child view is too tall to be fitted in its parent: If the child view is static
+      // overlay view container (contains views such as bottom prompt chip), we apply the size of
+      // the parent view to it. Otherwise, we offset the top/bottom position equally to position it
+      // in the center of the parent.
+      int excessLenInHalf = (childHeight - layoutHeight) / 2;
+      for (int i = 0; i < getChildCount(); ++i) {
+        View childView = getChildAt(i);
+        if (childView.getId() == R.id.static_overlay_container) {
+          childView.layout(0, 0, childWidth, layoutHeight);
+        } else {
+          childView.layout(0, -excessLenInHalf, childWidth, layoutHeight + excessLenInHalf);
+        }
+      }
     }
 
     try {
