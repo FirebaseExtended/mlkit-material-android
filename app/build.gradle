@@ -34,16 +34,16 @@ androidExtensions {
 dependencies {
     implementation 'com.android.support:preference-v7:28.0.0'
     implementation 'com.android.volley:volley:1.1.1'
-    implementation 'com.google.android.material:material:1.1.0-alpha07'
+    implementation 'com.google.android.material:material:1.1.0-alpha10'
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation "androidx.annotation:annotation:1.1.0"
-    implementation "androidx.core:core-ktx:1.0.2"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
+    implementation "androidx.core:core-ktx:1.1.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.41"
 
     // MLKit Dependencies
-    implementation 'com.google.firebase:firebase-ml-vision:22.0.0'
-    implementation 'com.google.firebase:firebase-ml-vision-object-detection-model:18.0.0'
+    implementation 'com.google.firebase:firebase-ml-vision:23.0.0'
+    implementation 'com.google.firebase:firebase-ml-vision-object-detection-model:19.0.1'
 
     api 'com.google.guava:guava:27.1-jre'
 }
