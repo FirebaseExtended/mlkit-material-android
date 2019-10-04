@@ -60,7 +60,7 @@ object PreferenceUtils {
             val reticleBoxWidth = getBarcodeReticleBox(overlay).width()
             val barcodeWidth = overlay.translateX(barcode.boundingBox?.width()?.toFloat() ?: 0f)
             val requiredWidth = reticleBoxWidth * getIntPref(context, R.string.pref_key_minimum_barcode_width, 50) / 100
-            Math.min(barcodeWidth / requiredWidth, 1f)
+            (barcodeWidth / requiredWidth).coerceAtMost(1f)
         } else {
             1f
         }

@@ -93,7 +93,7 @@ class BarcodeProcessor(graphicOverlay: GraphicOverlay, private val workflowModel
         return ValueAnimator.ofFloat(0f, endProgress).apply {
             duration = 2000
             addUpdateListener {
-                if (java.lang.Float.compare(animatedValue as Float, endProgress) >= 0) {
+                if ((animatedValue as Float).compareTo(endProgress) >= 0) {
                     graphicOverlay.clear()
                     workflowModel.setWorkflowState(WorkflowState.SEARCHED)
                     workflowModel.detectedBarcode.setValue(barcode)

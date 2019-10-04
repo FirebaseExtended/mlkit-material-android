@@ -38,7 +38,7 @@ internal class ObjectConfirmationController
         private set
 
     val isConfirmed: Boolean
-        get() = java.lang.Float.compare(progress, 1f) == 0
+        get() = progress.compareTo(1f) == 0
 
     init {
         val confirmationTimeMs = PreferenceUtils.getConfirmationTimeMs(graphicOverlay.context).toLong()

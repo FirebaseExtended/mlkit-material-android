@@ -36,6 +36,7 @@ import com.google.firebase.ml.md.kotlin.camera.FrameProcessorBase
 import com.google.firebase.ml.md.kotlin.settings.PreferenceUtils
 import java.io.IOException
 import java.util.ArrayList
+import kotlin.math.hypot
 
 /** A processor to run object detector in multi-objects mode.  */
 class MultiObjectProcessor(graphicOverlay: GraphicOverlay, private val workflowModel: WorkflowModel) :
@@ -173,7 +174,7 @@ class MultiObjectProcessor(graphicOverlay: GraphicOverlay, private val workflowM
         val objectCenter = PointF((box.left + box.right) / 2f, (box.top + box.bottom) / 2f)
         val reticleCenter = PointF(graphicOverlay.width / 2f, graphicOverlay.height / 2f)
         val distance =
-            Math.hypot((objectCenter.x - reticleCenter.x).toDouble(), (objectCenter.y - reticleCenter.y).toDouble())
+            hypot((objectCenter.x - reticleCenter.x).toDouble(), (objectCenter.y - reticleCenter.y).toDouble())
         return distance < objectSelectionDistanceThreshold
     }
 

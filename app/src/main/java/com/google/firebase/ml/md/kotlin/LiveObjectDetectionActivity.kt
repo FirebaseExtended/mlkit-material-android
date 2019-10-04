@@ -225,7 +225,7 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
 
                         val graphicOverlay = graphicOverlay ?: return
                         val bottomSheetBehavior = bottomSheetBehavior ?: return
-                        val collapsedStateHeight = Math.min(bottomSheetBehavior.peekHeight, bottomSheet.height)
+                        val collapsedStateHeight = bottomSheetBehavior.peekHeight.coerceAtMost(bottomSheet.height)
                         val bottomBitmap = objectThumbnailForBottomSheet ?: return
                         if (slidingSheetUpFromHiddenState) {
                             val thumbnailSrcRect = graphicOverlay.translateRect(searchedObject.boundingBox)
