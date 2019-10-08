@@ -172,28 +172,30 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
     private fun setUpBottomSheet() {
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById<View>(R.id.bottom_sheet)).apply {
 
-            bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    Log.d(TAG, "Bottom sheet new state: $newState")
-                    bottomSheetScrimView?.visibility =
-                            if (newState == BottomSheetBehavior.STATE_HIDDEN) View.GONE else View.VISIBLE
-                }
+            setBottomSheetCallback(
+                    object : BottomSheetBehavior.BottomSheetCallback() {
+                        override fun onStateChanged(bottomSheet: View, newState: Int) {
+                            Log.d(TAG, "Bottom sheet new state: $newState")
+                            bottomSheetScrimView?.visibility =
+                                    if (newState == BottomSheetBehavior.STATE_HIDDEN) View.GONE else View.VISIBLE
+                        }
 
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    if (java.lang.Float.isNaN(slideOffset)) {
-                        return
+                        override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                            if (java.lang.Float.isNaN(slideOffset)) {
+                                return
+                            }
+
+                            val collapsedStateHeight = bottomSheetBehavior!!.peekHeight.coerceAtMost(bottomSheet.height)
+                            val searchedObjectForBottomSheet = searchedObjectForBottomSheet
+                                    ?: return
+                            bottomSheetScrimView?.updateWithThumbnailTranslate(
+                                    searchedObjectForBottomSheet.getObjectThumbnail(),
+                                    collapsedStateHeight,
+                                    slideOffset,
+                                    bottomSheet)
+                        }
                     }
-
-                    val collapsedStateHeight = bottomSheetBehavior!!.peekHeight.coerceAtMost(bottomSheet.height)
-                    val searchedObjectForBottomSheet = searchedObjectForBottomSheet
-                            ?: return
-                    bottomSheetScrimView?.updateWithThumbnailTranslate(
-                            searchedObjectForBottomSheet.getObjectThumbnail(),
-                            collapsedStateHeight,
-                            slideOffset,
-                            bottomSheet)
-                }
-            }
+            )
             state = BottomSheetBehavior.STATE_HIDDEN
         }
 
@@ -261,7 +263,7 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
         showBottomPromptChip(getString(R.string.static_image_prompt_detected_results))
         loadingView?.visibility = View.GONE
         previewCardCarousel?.adapter =
-            PreviewCardAdapter(ImmutableList.copyOf(searchedObjectMap.values)) { showSearchResults(it) }
+                PreviewCardAdapter(ImmutableList.copyOf(searchedObjectMap.values)) { showSearchResults(it) }
         previewCardCarousel?.addOnScrollListener(
                 object : RecyclerView.OnScrollListener() {
                     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
