@@ -91,11 +91,10 @@ class CameraSourcePreview(context: Context, attrs: AttributeSet) : FrameLayout(c
         } ?: layoutWidth.toFloat() / layoutHeight.toFloat()
 
         // Match the width of the child view to its parent.
-        val childWidth = layoutWidth
-        val childHeight = (childWidth / previewSizeRatio).toInt()
+        val childHeight = (layoutWidth / previewSizeRatio).toInt()
         if (childHeight <= layoutHeight) {
             for (i in 0 until childCount) {
-                getChildAt(i).layout(0, 0, childWidth, childHeight)
+                getChildAt(i).layout(0, 0, layoutWidth, childHeight)
             }
         } else {
             // When the child view is too tall to be fitted in its parent: If the child view is
@@ -107,11 +106,11 @@ class CameraSourcePreview(context: Context, attrs: AttributeSet) : FrameLayout(c
                 val childView = getChildAt(i)
                 when (childView.id) {
                     R.id.static_overlay_container -> {
-                        childView.layout(0, 0, childWidth, layoutHeight)
+                        childView.layout(0, 0, layoutWidth, layoutHeight)
                     }
                     else -> {
                         childView.layout(
-                            0, -excessLenInHalf, childWidth, layoutHeight + excessLenInHalf)
+                            0, -excessLenInHalf, layoutWidth, layoutHeight + excessLenInHalf)
                     }
                 }
             }

@@ -33,6 +33,8 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.util.IdentityHashMap
+import kotlin.math.abs
+import kotlin.math.ceil
 
 /**
  * Manages the camera and allows UI updates on top of it (e.g. overlaying extra Graphics). This
@@ -242,7 +244,7 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
             Log.v(TAG, "Camera picture size: $pictureSize")
             parameters.setPictureSize(pictureSize.width, pictureSize.height)
             PreferenceUtils.saveStringPreference(
-                context, R.string.pref_key_rear_camera_picture_size, pictureSize.toString())
+                    context, R.string.pref_key_rear_camera_picture_size, pictureSize.toString())
         }
     }
 
@@ -283,16 +285,16 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
     private fun createPreviewBuffer(previewSize: Size): ByteArray {
         val bitsPerPixel = ImageFormat.getBitsPerPixel(IMAGE_FORMAT)
         val sizeInBits = previewSize.height.toLong() * previewSize.width.toLong() * bitsPerPixel.toLong()
-        val bufferSize = Math.ceil(sizeInBits / 8.0).toInt() + 1
+        val bufferSize = ceil(sizeInBits / 8.0).toInt() + 1
 
         // Creating the byte array this way and wrapping it, as opposed to using .allocate(),
         // should guarantee that there will be an array to work with.
         val byteArray = ByteArray(bufferSize)
         val byteBuffer = ByteBuffer.wrap(byteArray)
-        if (!byteBuffer.hasArray() || !byteBuffer.array()!!.contentEquals(byteArray)) {
+        check(!(!byteBuffer.hasArray() || !byteBuffer.array()!!.contentEquals(byteArray))) {
             // This should never happen. If it does, then we wouldn't be passing the preview content to
             // the underlying detector later.
-            throw IllegalStateException("Failed to create valid buffer for camera source.")
+            "Failed to create valid buffer for camera source."
         }
 
         bytesToByteBuffer[byteArray] = byteBuffer
@@ -340,8 +342,8 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
 
                 if (!bytesToByteBuffer.containsKey(data)) {
                     Log.d(
-                        TAG,
-                        "Skipping frame. Could not find ByteBuffer associated with the image data from the camera."
+                            TAG,
+                            "Skipping frame. Could not find ByteBuffer associated with the image data from the camera."
                     )
                     return
                 }
@@ -464,8 +466,8 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
                 }
 
                 val previewAspectRatio = previewSize.width.toFloat() / previewSize.height.toFloat()
-                val aspectRatioDiff = Math.abs(displayAspectRatioInLandscape - previewAspectRatio)
-                if (Math.abs(aspectRatioDiff - minAspectRatioDiff) < Utils.ASPECT_RATIO_TOLERANCE) {
+                val aspectRatioDiff = abs(displayAspectRatioInLandscape - previewAspectRatio)
+                if (abs(aspectRatioDiff - minAspectRatioDiff) < Utils.ASPECT_RATIO_TOLERANCE) {
                     if (selectedPair == null || selectedPair.preview.width < sizePair.preview.width) {
                         selectedPair = sizePair
                     }
@@ -482,8 +484,8 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
                 for (sizePair in validPreviewSizes) {
                     val size = sizePair.preview
                     val diff =
-                        Math.abs(size.width - DEFAULT_REQUESTED_CAMERA_PREVIEW_WIDTH) +
-                            Math.abs(size.height - DEFAULT_REQUESTED_CAMERA_PREVIEW_HEIGHT)
+                            abs(size.width - DEFAULT_REQUESTED_CAMERA_PREVIEW_WIDTH) +
+                                    abs(size.height - DEFAULT_REQUESTED_CAMERA_PREVIEW_HEIGHT)
                     if (diff < minDiff) {
                         selectedPair = sizePair
                         minDiff = diff
@@ -515,7 +517,7 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
             for (range in camera.parameters.supportedPreviewFpsRange) {
                 val deltaMin = desiredPreviewFpsScaled - range[Parameters.PREVIEW_FPS_MIN_INDEX]
                 val deltaMax = desiredPreviewFpsScaled - range[Parameters.PREVIEW_FPS_MAX_INDEX]
-                val diff = Math.abs(deltaMin) + Math.abs(deltaMax)
+                val diff = abs(deltaMin) + abs(deltaMax)
                 if (diff < minDiff) {
                     selectedFpsRange = range
                     minDiff = diff

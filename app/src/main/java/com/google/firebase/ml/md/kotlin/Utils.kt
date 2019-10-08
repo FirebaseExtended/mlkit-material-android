@@ -41,6 +41,7 @@ import com.google.firebase.ml.md.kotlin.camera.CameraSizePair
 import java.io.IOException
 import java.io.InputStream
 import java.util.ArrayList
+import kotlin.math.abs
 
 /** Utility class to provide helper methods.  */
 object Utils {
@@ -106,7 +107,7 @@ object Utils {
             // picture later.
             for (pictureSize in supportedPictureSizes) {
                 val pictureAspectRatio = pictureSize.width.toFloat() / pictureSize.height.toFloat()
-                if (Math.abs(previewAspectRatio - pictureAspectRatio) < ASPECT_RATIO_TOLERANCE) {
+                if (abs(previewAspectRatio - pictureAspectRatio) < ASPECT_RATIO_TOLERANCE) {
                     validPreviewSizes.add(CameraSizePair(previewSize, pictureSize))
                     break
                 }

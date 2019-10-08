@@ -71,7 +71,7 @@ class WorkflowModel(application: Application) : AndroidViewModel(application) {
 
     @MainThread
     fun confirmingObject(confirmingObject: DetectedObject, progress: Float) {
-        val isConfirmed = java.lang.Float.compare(progress, 1f) == 0
+        val isConfirmed = progress.compareTo(1f) == 0
         if (isConfirmed) {
             confirmedObject = confirmingObject
             if (PreferenceUtils.isAutoSearchEnabled(context)) {
