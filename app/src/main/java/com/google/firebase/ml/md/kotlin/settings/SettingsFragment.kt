@@ -35,7 +35,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun setUpRearCameraPreviewSizePreference() {
         val previewSizePreference =
-            findPreference(getString(R.string.pref_key_rear_camera_preview_size)) as ListPreference
+                findPreference<ListPreference>(getString(R.string.pref_key_rear_camera_preview_size))!!
 
         var camera: Camera? = null
 
