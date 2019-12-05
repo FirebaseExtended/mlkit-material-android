@@ -118,7 +118,7 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
                                 .enableMultipleObjects()
                                 .build()
                 )
-        intent.data?.let { detectObjects(it) }
+        intent.data?.let(::detectObjects)
     }
 
     override fun onDestroy() {
@@ -134,9 +134,7 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == Utils.REQUEST_CODE_PHOTO_LIBRARY && resultCode == Activity.RESULT_OK) {
-            data?.data?.let {
-                detectObjects(it)
-            }
+            data?.data?.let(::detectObjects)
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
