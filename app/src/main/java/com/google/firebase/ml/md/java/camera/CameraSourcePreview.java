@@ -106,7 +106,7 @@ public class CameraSourcePreview extends FrameLayout {
     int childHeight = (int) (childWidth / previewSizeRatio);
     if (childHeight <= layoutHeight) {
       for (int i = 0; i < getChildCount(); ++i) {
-        getChildAt(i).layout(0, 0, childWidth, childHeight);
+        getChildAt(i).layout(0, 0, childWidth, getHeight());
       }
     } else {
       // When the child view is too tall to be fitted in its parent: If the child view is static
