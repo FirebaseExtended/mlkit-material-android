@@ -42,6 +42,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.util.ArrayList
 import kotlin.math.abs
+import kotlin.math.max
 
 /** Utility class to provide helper methods.  */
 object Utils {
@@ -156,7 +157,7 @@ object Utils {
             var opts = BitmapFactory.Options()
             opts.inJustDecodeBounds = true
             BitmapFactory.decodeStream(inputStreamForSize, null, opts)/* outPadding= */
-            val inSampleSize = Math.max(opts.outWidth / maxImageDimension, opts.outHeight / maxImageDimension)
+            val inSampleSize = max(opts.outWidth / maxImageDimension, opts.outHeight / maxImageDimension)
 
             opts = BitmapFactory.Options()
             opts.inSampleSize = inSampleSize
