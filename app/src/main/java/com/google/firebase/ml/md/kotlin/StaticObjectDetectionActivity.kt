@@ -168,7 +168,7 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
     }
 
     private fun setUpBottomSheet() {
-        bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet)).apply {
+        bottomSheetBehavior = BottomSheetBehavior.from(findViewById<View>(R.id.bottom_sheet)).apply {
 
             setBottomSheetCallback(
                     object : BottomSheetBehavior.BottomSheetCallback() {
