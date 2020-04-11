@@ -156,7 +156,6 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
 
     private fun setUpWorkflowModel() {
         workflowModel = ViewModelProvider(this).get(WorkflowModel::class.java)
-//        workflowModel = ViewModelProviders.of(this).get(WorkflowModel::class.java)
 
         // Observes the workflow state changes, if happens, update the overlay view indicators and
         // camera preview state.
