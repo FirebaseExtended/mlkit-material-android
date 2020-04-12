@@ -30,7 +30,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -254,7 +254,7 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
     }
 
     private fun setUpWorkflowModel() {
-        workflowModel = ViewModelProviders.of(this).get(WorkflowModel::class.java).apply {
+        workflowModel = ViewModelProvider(this).get(WorkflowModel::class.java).apply {
 
             // Observes the workflow state changes, if happens, update the overlay view indicators and
             // camera preview state.
