@@ -39,7 +39,7 @@ class SearchEngine(context: Context) {
         listener: (detectedObject: DetectedObject, productList: List<Product>) -> Unit
     ) {
         // Crops the object image out of the full image is expensive, so do it off the UI thread.
-        Tasks.call<JsonObjectRequest>(requestCreationExecutor, Callable { createRequest(detectedObject) })
+        Tasks.call(requestCreationExecutor, Callable { createRequest(detectedObject) })
                 .addOnSuccessListener { productRequest -> searchRequestQueue.add(productRequest.setTag(TAG)) }
                 .addOnFailureListener { e ->
                     Log.e(TAG, "Failed to create product search request!", e)

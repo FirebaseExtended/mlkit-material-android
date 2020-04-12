@@ -23,7 +23,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -62,7 +62,7 @@ class BarcodeResultFragment : BottomSheetDialogFragment() {
     override fun onDismiss(dialogInterface: DialogInterface) {
         activity?.let {
             // Back to working state after the bottom sheet is dismissed.
-            ViewModelProviders.of(it).get<WorkflowModel>(WorkflowModel::class.java)
+            ViewModelProvider(it).get(WorkflowModel::class.java)
                     .setWorkflowState(WorkflowState.DETECTING)
         }
         super.onDismiss(dialogInterface)

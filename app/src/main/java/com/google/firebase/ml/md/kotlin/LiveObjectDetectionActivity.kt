@@ -199,7 +199,7 @@ class LiveObjectDetectionActivity : AppCompatActivity(), OnClickListener {
 
     private fun setUpBottomSheet() {
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet))
-        bottomSheetBehavior?.setBottomSheetCallback(
+        bottomSheetBehavior?.addBottomSheetCallback(
                 object : BottomSheetBehavior.BottomSheetCallback() {
                     override fun onStateChanged(bottomSheet: View, newState: Int) {
                         Log.d(TAG, "Bottom sheet new state: $newState")
