@@ -24,6 +24,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.bumptech.glide.Glide
 import com.google.firebase.ml.md.R
 import com.google.firebase.ml.md.kotlin.productsearch.ProductAdapter.ProductViewHolder
 
@@ -40,7 +41,7 @@ class ProductAdapter(private val productList: List<Product>) : Adapter<ProductVi
         fun bindProduct(product: Product) {
             imageView.setImageDrawable(null)
             if (!TextUtils.isEmpty(product.imageUrl)) {
-                ImageDownloadTask(imageView, imageSize).execute(product.imageUrl)
+                Glide.with(imageView).load(product.imageUrl).into(imageView)
             } else {
                 imageView.setImageResource(R.drawable.logo_google_cloud)
             }

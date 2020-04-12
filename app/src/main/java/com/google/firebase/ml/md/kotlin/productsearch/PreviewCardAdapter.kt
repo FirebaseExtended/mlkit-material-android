@@ -23,6 +23,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.ml.md.R
 
 /** Powers the bottom card carousel for displaying the preview of product search result.  */
@@ -63,7 +64,7 @@ class PreviewCardAdapter(
                 imageView.visibility = View.VISIBLE
                 imageView.setImageDrawable(null)
                 if (!TextUtils.isEmpty(topProduct.imageUrl)) {
-                    ImageDownloadTask(imageView, imageSize).execute(topProduct.imageUrl)
+                    Glide.with(imageView).load(topProduct.imageUrl).into(imageView)
                 } else {
                     imageView.setImageResource(R.drawable.logo_google_cloud)
                 }
