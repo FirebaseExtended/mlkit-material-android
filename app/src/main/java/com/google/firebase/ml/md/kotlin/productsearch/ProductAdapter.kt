@@ -36,7 +36,6 @@ class ProductAdapter(private val productList: List<Product>) : Adapter<ProductVi
         private val imageView: ImageView = view.findViewById(R.id.product_image)
         private val titleView: TextView = view.findViewById(R.id.product_title)
         private val subtitleView: TextView = view.findViewById(R.id.product_subtitle)
-        private val imageSize: Int = view.resources.getDimensionPixelOffset(R.dimen.product_item_image_size)
 
         fun bindProduct(product: Product) {
             imageView.setImageDrawable(null)

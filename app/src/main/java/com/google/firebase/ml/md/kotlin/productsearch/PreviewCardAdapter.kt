@@ -52,7 +52,6 @@ class PreviewCardAdapter(
         private val imageView: ImageView = itemView.findViewById(R.id.card_image)
         private val titleView: TextView = itemView.findViewById(R.id.card_title)
         private val subtitleView: TextView = itemView.findViewById(R.id.card_subtitle)
-        private val imageSize: Int = itemView.resources.getDimensionPixelOffset(R.dimen.preview_card_image_size)
 
         internal fun bindProducts(products: List<Product>) {
             if (products.isEmpty()) {
