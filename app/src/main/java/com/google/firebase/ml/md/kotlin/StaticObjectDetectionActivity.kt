@@ -170,7 +170,7 @@ class StaticObjectDetectionActivity : AppCompatActivity(), View.OnClickListener 
     private fun setUpBottomSheet() {
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById<View>(R.id.bottom_sheet)).apply {
 
-            setBottomSheetCallback(
+            addBottomSheetCallback(
                     object : BottomSheetBehavior.BottomSheetCallback() {
                         override fun onStateChanged(bottomSheet: View, newState: Int) {
                             Log.d(TAG, "Bottom sheet new state: $newState")
