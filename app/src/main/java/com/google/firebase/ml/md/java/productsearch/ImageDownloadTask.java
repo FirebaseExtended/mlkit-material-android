@@ -27,7 +27,6 @@ import java.io.InputStream;
 import java.net.URL;
 
 /** Async task to download the image and then feed into the provided image view. */
-@Deprecated
 class ImageDownloadTask extends AsyncTask<String, Void, Bitmap> {
   private static final String TAG = "ImageDownloadTask";
 

@@ -25,8 +25,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
-
-import com.bumptech.glide.Glide;
 import com.google.firebase.ml.md.R;
 import com.google.firebase.ml.md.java.productsearch.ProductAdapter.ProductViewHolder;
 import java.util.List;
@@ -58,7 +56,7 @@ public class ProductAdapter extends Adapter<ProductViewHolder> {
     void bindProduct(Product product) {
       imageView.setImageDrawable(null);
       if (!TextUtils.isEmpty(product.imageUrl)) {
-        Glide.with(imageView).load(product.imageUrl).into(imageView);
+        new ImageDownloadTask(imageView, imageSize).execute(product.imageUrl);
       } else {
         imageView.setImageResource(R.drawable.logo_google_cloud);
       }
