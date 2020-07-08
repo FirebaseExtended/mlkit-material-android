@@ -1,3 +1,5 @@
+UPDATE: This project has been moved to https://github.com/googlesamples/mlkit/tree/master/android/material-showcase as part of the ML Kit's new standalone SDK. [Learn more](https://developers.google.com/ml-kit)
+
 [![Build Status](https://travis-ci.org/firebase/mlkit-material-android.svg?branch=master)](https://travis-ci.org/firebase/mlkit-material-android)
 
 # ML Kit Showcase App with Material Design
