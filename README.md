@@ -18,6 +18,12 @@ that has been user tested for the specific use cases that are covered:
 <img src="screenshots/live_odt.gif" width="256"/> <img src="screenshots/static_odt.gif" width="256"/>
 <img src="screenshots/live_barcode.gif" width="256"/>
 
+## Status
+
+![Status: Archived](https://img.shields.io/badge/Status-Archived-red)
+
+This sample is no longer actively maintained and is left here for reference only.
+
 ## Steps to run the app
 
 * Clone this repo locally
