@@ -1,3 +1,5 @@
+UPDATE: This project has been moved to https://github.com/googlesamples/mlkit/tree/master/android/material-showcase as part of the ML Kit's new standalone SDK. [Learn more](https://developers.google.com/ml-kit)
+
 [![Build Status](https://travis-ci.org/firebase/mlkit-material-android.svg?branch=master)](https://travis-ci.org/firebase/mlkit-material-android)
 
 # ML Kit Showcase App with Material Design
@@ -15,6 +17,12 @@ that has been user tested for the specific use cases that are covered:
 
 <img src="screenshots/live_odt.gif" width="256"/> <img src="screenshots/static_odt.gif" width="256"/>
 <img src="screenshots/live_barcode.gif" width="256"/>
+
+## Status
+
+![Status: Archived](https://img.shields.io/badge/Status-Archived-red)
+
+This sample is no longer actively maintained and is left here for reference only.
 
 ## Steps to run the app
 
